@@ -1,3 +1,4 @@
+import Reveal from '@/components/portfolio/atoms/reveal';
 import Section from '@/components/portfolio/atoms/section';
 import SectionHeading from '@/components/portfolio/atoms/section-heading';
 import TimelineItem from '@/components/portfolio/molecules/timeline-item';
@@ -14,59 +15,51 @@ export default function JourneySection({ locale }: JourneySectionProps) {
     return (
         <Section id="pengalaman" tone="tint">
             <SectionHeading
-                className="mb-8"
-                kicker={JOURNEY.kicker[locale]}
                 title={JOURNEY.title[locale]}
+                lead={JOURNEY.lead[locale]}
             />
 
-            <div className="grid grid-cols-1 gap-6 pt-2 md:grid-cols-2">
-                {JOURNEY.items.map((item) => (
+            <Reveal delay={80}>
+                <div className="mt-14 max-w-4xl space-y-16">
+                    {JOURNEY.items.map((item) => (
+                        <TimelineItem
+                            key={item.org}
+                            label={JOURNEY.workLabel[locale]}
+                            meta={item.kind[locale]}
+                            title={item.role}
+                            org={item.org}
+                        >
+                            <ul className="max-w-[62ch] space-y-2.5 text-lg leading-relaxed text-slate-muted">
+                                {item.points.map((point) => (
+                                    <li key={point.en}>{point[locale]}</li>
+                                ))}
+                            </ul>
+
+                            <p className="text-base text-sand">
+                                {JOURNEY.tags.join(' · ')}
+                            </p>
+                        </TimelineItem>
+                    ))}
+
                     <TimelineItem
-                        key={item.org}
-                        label={JOURNEY.workLabel[locale]}
-                        meta={item.kind[locale]}
-                        title={item.role}
-                        org={item.org}
+                        label={JOURNEY.educationLabel[locale]}
+                        meta={education.period[locale]}
+                        title={education.role[locale]}
+                        org={education.org}
                     >
-                        <ul className="list-inside list-disc space-y-2.5 text-xs text-slate-muted sm:text-sm">
-                            {item.points.map((point) => (
-                                <li key={point.en}>{point[locale]}</li>
-                            ))}
-                        </ul>
+                        <p className="max-w-[62ch] text-lg leading-relaxed text-slate-muted">
+                            {education.body[locale]}
+                        </p>
 
-                        <div className="flex flex-wrap gap-2 pt-4">
-                            {JOURNEY.tags.map((tag) => (
-                                <span
-                                    key={tag}
-                                    className="rounded border border-deck-700/60 bg-deck-850 px-2.5 py-1 text-[11px] text-slate-muted"
-                                >
-                                    {tag}
-                                </span>
-                            ))}
-                        </div>
+                        <p className="text-base text-slate-muted">
+                            {JOURNEY.gpaLabel[locale]}:{' '}
+                            <span className="font-display text-2xl font-bold text-accent-teal">
+                                {education.note[locale]}
+                            </span>
+                        </p>
                     </TimelineItem>
-                ))}
-
-                <TimelineItem
-                    label={JOURNEY.educationLabel[locale]}
-                    meta={education.period[locale]}
-                    title={education.role[locale]}
-                    org={education.org}
-                >
-                    <div className="inline-flex items-baseline gap-2 rounded-xl border border-deck-700/60 bg-deck-850 p-3">
-                        <span className="text-xs font-semibold text-slate-muted uppercase">
-                            {JOURNEY.gpaLabel[locale]}:
-                        </span>
-                        <span className="font-display text-lg font-bold text-accent-teal">
-                            {education.note[locale]}
-                        </span>
-                    </div>
-
-                    <p className="text-xs leading-relaxed text-slate-muted">
-                        {education.body[locale]}
-                    </p>
-                </TimelineItem>
-            </div>
+                </div>
+            </Reveal>
         </Section>
     );
 }

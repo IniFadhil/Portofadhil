@@ -1,3 +1,4 @@
+import Reveal from '@/components/portfolio/atoms/reveal';
 import Section from '@/components/portfolio/atoms/section';
 import SectionHeading from '@/components/portfolio/atoms/section-heading';
 import SkillGroup from '@/components/portfolio/molecules/skill-group';
@@ -11,7 +12,7 @@ type CapabilitiesSectionProps = {
 };
 
 const TAB =
-    'rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:ring-offset-2 focus-visible:ring-offset-deck-950 focus-visible:outline-none';
+    'rounded-full px-4 py-2 text-base font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:outline-none';
 
 /**
  * The skills table, with a filter row above it. `null` is the "all" tab; picking
@@ -35,16 +36,16 @@ export default function CapabilitiesSection({
 
     return (
         <Section id="perkakas">
-            <div className="mb-8 flex flex-col justify-between gap-4 border-b border-deck-700/80 pb-6 md:flex-row md:items-center">
-                <SectionHeading
-                    kicker={CAPABILITIES.kicker[locale]}
-                    title={CAPABILITIES.title[locale]}
-                />
+            <SectionHeading
+                title={CAPABILITIES.title[locale]}
+                lead={CAPABILITIES.lead[locale]}
+            />
 
+            <Reveal delay={80}>
                 <div
                     role="group"
                     aria-label={CAPABILITIES.title[locale]}
-                    className="flex flex-wrap gap-1.5"
+                    className="mt-10 flex flex-wrap gap-2"
                 >
                     {tabs.map((tab) => (
                         <button
@@ -56,24 +57,24 @@ export default function CapabilitiesSection({
                                 TAB,
                                 filter === tab.key
                                     ? 'bg-accent-teal text-[#0a1618]'
-                                    : 'border border-deck-700/40 bg-deck-900 text-slate-muted hover:text-sand',
+                                    : 'bg-deck-900 text-slate-muted hover:text-sand',
                             )}
                         >
                             {tab.label}
                         </button>
                     ))}
                 </div>
-            </div>
 
-            <div className="space-y-3.5 text-xs sm:text-sm">
-                {groups.map((group) => (
-                    <SkillGroup
-                        key={`${group.key}-${group.label.en}`}
-                        label={group.label[locale]}
-                        items={group.items}
-                    />
-                ))}
-            </div>
+                <div className="mt-12 space-y-7">
+                    {groups.map((group) => (
+                        <SkillGroup
+                            key={`${group.key}-${group.label.en}`}
+                            label={group.label[locale]}
+                            items={group.items}
+                        />
+                    ))}
+                </div>
+            </Reveal>
         </Section>
     );
 }

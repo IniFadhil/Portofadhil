@@ -1,4 +1,5 @@
 import Emphasis from '@/components/portfolio/atoms/emphasis';
+import Reveal from '@/components/portfolio/atoms/reveal';
 import Section from '@/components/portfolio/atoms/section';
 import SectionHeading from '@/components/portfolio/atoms/section-heading';
 import { ABOUT } from '@/data/portfolio';
@@ -11,25 +12,25 @@ type AboutSectionProps = {
 export default function AboutSection({ locale }: AboutSectionProps) {
     return (
         <Section id="tentang" tone="tint">
-            <div className="flex flex-col justify-between gap-8 md:flex-row md:items-start lg:gap-16">
-                <div className="md:w-1/3">
-                    <SectionHeading
-                        kicker={ABOUT.kicker[locale]}
-                        title={ABOUT.title[locale]}
-                    />
-                </div>
+            <div className="grid gap-10 md:grid-cols-12 md:gap-12">
+                <SectionHeading
+                    className="md:col-span-5"
+                    title={ABOUT.title[locale]}
+                />
 
-                <div className="space-y-4 text-base leading-relaxed text-slate-muted sm:text-lg md:w-2/3">
-                    <p>
-                        <Emphasis text={ABOUT.lead[locale]} />
-                    </p>
+                <Reveal delay={80} className="md:col-span-7">
+                    <div className="max-w-[62ch] space-y-5 text-lg leading-relaxed text-slate-muted">
+                        <p>
+                            <Emphasis text={ABOUT.lead[locale]} />
+                        </p>
 
-                    <p>
-                        <Emphasis text={ABOUT.body[locale]} />
-                    </p>
+                        <p>
+                            <Emphasis text={ABOUT.body[locale]} />
+                        </p>
 
-                    <p className="text-sand/90">{ABOUT.note[locale]}</p>
-                </div>
+                        <p className="text-sand">{ABOUT.note[locale]}</p>
+                    </div>
+                </Reveal>
             </div>
         </Section>
     );

@@ -658,6 +658,10 @@ export const ACTIVITY = {
 export const JOURNEY = {
     kicker: { id: 'Pengalaman', en: 'Experience' },
     title: { id: 'Perjalanan Sejauh Ini', en: 'The Road So Far' },
+    lead: {
+        id: 'Peran, organisasi, dan pendidikan yang membentuk cara saya bekerja.',
+        en: 'The roles, organisations and schooling that shaped how I work.',
+    },
     workLabel: { id: 'Pengalaman Kerja', en: 'Work experience' },
     educationLabel: { id: 'Pendidikan Formal', en: 'Formal education' },
     gpaLabel: { id: 'Indeks Prestasi Kumulatif', en: 'Cumulative GPA' },

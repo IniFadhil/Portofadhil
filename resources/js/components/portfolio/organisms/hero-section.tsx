@@ -1,127 +1,105 @@
-import { HERO, NAME, PROFILE, UI } from "@/data/portfolio";
-import type { Locale } from "@/data/portfolio";
-import { cn } from "@/lib/utils";
-import { ChevronDown, Github, MapPin } from "lucide-react";
-import { useState } from "react";
+import Reveal from '@/components/portfolio/atoms/reveal';
+import { HERO, NAME, PROFILE, UI } from '@/data/portfolio';
+import type { Locale } from '@/data/portfolio';
+import { cn } from '@/lib/utils';
+import { ArrowRight, Github } from 'lucide-react';
+import { useState } from 'react';
 
 type HeroSectionProps = {
     locale: Locale;
 };
 
-const STAT = "rounded-xl border border-deck-700/60 bg-deck-900/80 p-3.5";
-
 /**
- * The cover: the big wordmark and the two roles across the top rule, then the
- * name, the pitch and the stats on the left with the avatar card on the right.
+ * The cover: the name at display size, what he does and where in the line under
+ * it, the pitch, two actions, the facts, and the character card on the right.
+ * Clicking the character turns it over into his photograph.
  */
 export default function HeroSection({ locale }: HeroSectionProps) {
     const copy = UI[locale];
     const [first, second] = NAME.parts[locale];
-    const card = HERO.profileCard;
     const [showPhoto, setShowPhoto] = useState(false);
 
     return (
         <section
             id="hero"
-            className="relative w-full scroll-mt-24 border-b border-deck-700/60 grid-pattern pt-12 pb-20 md:py-24"
+            className="relative w-full scroll-mt-24 pt-14 pb-24 md:pt-24 md:pb-32"
         >
-            <div className="mx-auto max-w-7xl px-4 sm:px-8">
-                <div className="mb-10 flex items-center justify-between gap-4 border-b border-deck-700/80 pb-5">
-                    <h1 className="font-display text-4xl font-black tracking-tighter text-sand uppercase sm:text-6xl md:text-8xl">
-                        {HERO.wordmark[locale]}
-                    </h1>
+            <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+                <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-16">
+                    <div className="lg:col-span-7">
+                        <Reveal>
+                            <h1 className="font-display text-[clamp(2.75rem,7vw,5.5rem)] leading-[0.9] font-bold tracking-[-0.045em] text-sand">
+                                {first}
+                                <br />
+                                {second}
+                            </h1>
+                        </Reveal>
 
-                    <div className="hidden items-center gap-4 text-xs font-bold tracking-widest text-accent-teal md:flex">
-                        <span>{HERO.roles[0]}</span>
-                        <span
-                            aria-hidden
-                            className="size-1.5 rounded-full bg-accent-teal"
-                        />
-                        <span>{HERO.roles[1]}</span>
-                    </div>
-                </div>
+                        <Reveal delay={70}>
+                            <p className="mt-7 max-w-[34ch] text-xl leading-snug font-semibold text-sand/90 sm:text-2xl">
+                                {HERO.roles[0]} &amp; {HERO.roles[1]}
+                            </p>
 
-                <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
-                    <div className="space-y-6 lg:col-span-7">
-                        <div className="space-y-3">
-                            <h2 className="text-3xl font-extrabold tracking-tight text-sand sm:text-5xl lg:text-6xl">
-                                {first} {second}
-                            </h2>
+                            <p className="mt-1 text-lg text-slate-muted">
+                                {HERO.location[locale]}
+                            </p>
 
-                            <p className="max-w-2xl text-base leading-relaxed text-slate-muted sm:text-lg">
+                            <p className="mt-6 max-w-[52ch] text-lg leading-relaxed text-slate-muted">
                                 {HERO.lead[locale]}
                             </p>
-                        </div>
+                        </Reveal>
 
-                        <p className="flex items-center gap-2 text-xs font-medium text-slate-muted sm:text-sm">
-                            <MapPin
-                                className="size-4 shrink-0 text-accent-teal"
-                                aria-hidden
-                            />
-                            {HERO.eyebrow[locale]}
-                        </p>
+                        <Reveal delay={140}>
+                            <div className="mt-9 flex flex-wrap items-center gap-3">
+                                <a
+                                    href="#proyek"
+                                    className="inline-flex items-center gap-2 rounded-full bg-accent-teal px-6 py-3 text-base font-bold text-[#0a1618] transition-colors hover:bg-accent-mint"
+                                >
+                                    {copy.exploreProjects}
+                                    <ArrowRight
+                                        className="size-4"
+                                        aria-hidden
+                                    />
+                                </a>
 
-                        <div className="flex flex-wrap items-center gap-3.5 pt-2">
-                            <a
-                                href="#proyek"
-                                className="inline-flex items-center gap-2 rounded-xl bg-accent-teal px-6 py-3 text-sm font-bold text-[#0a1618] shadow-[0_0_30px_rgba(45,212,191,0.2)] transition-colors hover:bg-accent-mint"
-                            >
-                                <span>{copy.exploreProjects}</span>
-                                <ChevronDown className="size-4" aria-hidden />
-                            </a>
+                                <a
+                                    href="#kontak"
+                                    className="rounded-full bg-deck-800 px-6 py-3 text-base font-semibold text-sand transition-colors hover:bg-deck-700"
+                                >
+                                    {copy.contact}
+                                </a>
 
-                            <a
-                                href="#kontak"
-                                className="rounded-xl border border-deck-700 bg-deck-900 px-6 py-3 text-sm font-semibold text-sand transition-colors hover:bg-deck-800"
-                            >
-                                {copy.contact}
-                            </a>
+                                <a
+                                    href={PROFILE.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-3 py-3 text-base font-medium text-slate-muted transition-colors hover:text-accent-teal"
+                                >
+                                    <Github className="size-4" aria-hidden />
+                                    {PROFILE.githubHandle}
+                                </a>
+                            </div>
+                        </Reveal>
 
-                            <a
-                                href={PROFILE.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-slate-muted transition-colors hover:text-accent-teal"
-                            >
-                                <Github className="size-4" aria-hidden />
-                                {PROFILE.githubHandle}
-                            </a>
-                        </div>
-
-                        <dl className="grid max-w-lg grid-cols-3 gap-4 border-t border-deck-700/80 pt-6">
-                            {HERO.facts.map((fact) => (
-                                <div key={fact.value} className={STAT}>
-                                    <dt className="block text-[11px] font-semibold tracking-wider text-slate-muted uppercase">
-                                        {fact.label[locale]}
-                                    </dt>
-                                    <dd className="font-display text-2xl font-black text-sand sm:text-3xl">
-                                        {fact.value}
-                                    </dd>
-                                </div>
-                            ))}
-                        </dl>
+                        <Reveal delay={210}>
+                            <ul className="mt-16 flex flex-wrap gap-x-16 gap-y-8">
+                                {HERO.facts.map((fact) => (
+                                    <li key={fact.label.en}>
+                                        <span className="block font-display text-3xl font-bold text-sand">
+                                            {fact.value}
+                                        </span>
+                                        <span className="mt-1 block text-base text-slate-muted">
+                                            {fact.label[locale]}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </Reveal>
                     </div>
 
-                    <div className="flex items-center justify-center lg:col-span-5">
-                        <div className="relative flex aspect-[4/5] w-full max-w-[340px] flex-col items-center justify-between overflow-hidden rounded-3xl border border-accent-teal/30 bg-gradient-to-b from-deck-850 via-deck-900 to-[#081315] p-5 shadow-2xl">
-                            <span
-                                aria-hidden
-                                className="absolute inset-0 dot-pattern opacity-15"
-                            />
-
-                            <div className="z-10 flex w-full items-center justify-between">
-                                <span className="rounded-md border border-accent-teal/30 bg-[#0a1618]/90 px-2.5 py-1 text-[11px] font-bold tracking-wider text-accent-teal">
-                                    {card.badge}
-                                </span>
-
-                                <div className="flex gap-1.5" aria-hidden>
-                                    <span className="size-2.5 rounded-full bg-red-400/80" />
-                                    <span className="size-2.5 rounded-full bg-yellow-400/80" />
-                                    <span className="size-2.5 rounded-full bg-green-400/80" />
-                                </div>
-                            </div>
-
-                            <div className="relative z-10 flex w-full items-center justify-center py-2 [perspective:1200px]">
+                    <Reveal delay={120} className="lg:col-span-5">
+                        <div className="mx-auto w-full max-w-[360px] bg-deck-900 p-6 sm:p-8">
+                            <div className="[perspective:1200px]">
                                 <button
                                     type="button"
                                     onClick={() =>
@@ -133,7 +111,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
                                             ? HERO.avatarAlt[locale]
                                             : HERO.avatarPhotoAlt[locale]
                                     }
-                                    className="relative block h-64 w-52 cursor-pointer rounded-2xl transition-transform duration-500 hover:scale-[1.03] focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:outline-none"
+                                    className="relative block h-72 w-full cursor-pointer transition-transform duration-500 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:outline-none"
                                 >
                                     <div
                                         className={cn(
@@ -147,27 +125,25 @@ export default function HeroSection({ locale }: HeroSectionProps) {
                                             alt={HERO.avatarAlt[locale]}
                                             width={255}
                                             height={800}
-                                            className="absolute inset-0 size-full object-contain drop-shadow-2xl [backface-visibility:hidden]"
+                                            className="absolute inset-0 size-full object-contain [backface-visibility:hidden]"
                                         />
 
                                         <img
                                             src={HERO.avatarPhoto}
                                             alt={HERO.avatarPhotoAlt[locale]}
-                                            width={768}
-                                            height={960}
-                                            className="absolute inset-0 size-full rounded-2xl object-cover shadow-2xl [backface-visibility:hidden] [transform:rotateY(180deg)]"
+                                            width={800}
+                                            height={1000}
+                                            className="absolute inset-0 size-full [transform:rotateY(180deg)] object-cover [backface-visibility:hidden]"
                                         />
                                     </div>
                                 </button>
                             </div>
 
-                            <div className="z-10 w-full rounded-xl border border-deck-700/60 bg-deck-850/90 px-3 py-2 text-center">
-                                <span className="text-xs font-semibold text-sand">
-                                    {card.caption[locale]}
-                                </span>
-                            </div>
+                            <p className="mt-6 text-center text-base text-slate-muted">
+                                {HERO.profileCard.caption[locale]}
+                            </p>
                         </div>
-                    </div>
+                    </Reveal>
                 </div>
             </div>
         </section>

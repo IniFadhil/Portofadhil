@@ -19,9 +19,6 @@ export default defineConfig({
                 google('Space Grotesk', {
                     weights: [600, 700],
                 }),
-                google('JetBrains Mono', {
-                    weights: [400, 500, 600],
-                }),
                 google('Plus Jakarta Sans', {
                     weights: [400, 500, 600, 700, 800],
                 }),

@@ -13,10 +13,11 @@
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
 
-    /* ---- Portfolio tokens (near-black teal deck, sand type, teal accent) ---- */
+    /* ---- Portfolio tokens (near-black teal deck, bone type, teal accent) ---- */
     --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
     --font-ui: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
-    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    /* Two faces only: the UI face stands in wherever a mono was used. */
+    --font-mono: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 
     /* The portfolio surfaces, darkest to lightest. */
     --color-deck-950: #0a1618;
@@ -29,8 +30,8 @@
     --color-accent-mint: #5eead4;
     --color-accent-cyan: #38bdf8;
 
-    --color-sand: #f5f0e6;
-    --color-slate-muted: #8da5a8;
+    --color-sand: #e9ece9;
+    --color-slate-muted: #9db3b1;
 
     /* ---- Auth tokens: the gold surface, untouched by the portfolio palette ---- */
     --color-ink-950: #0b2e3a;
@@ -189,58 +190,10 @@
     color: #0a1618;
 }
 
-/* The portfolio deck: one flat near-black teal behind the ambient glows. */
+/* The portfolio deck: one flat near-black teal. Surfaces step up in tone from
+   here, never with a border or a shadow. */
 @utility deck-field {
     background-color: #0a1618;
-}
-
-/* The faint blueprint grid the hero and the page sit on. */
-@utility grid-pattern {
-    background-size: 32px 32px;
-    background-image:
-        linear-gradient(to right, rgb(45 212 191 / 0.035) 1px, transparent 1px),
-        linear-gradient(to bottom, rgb(45 212 191 / 0.035) 1px, transparent 1px);
-}
-
-/* A dotted field, used inside the avatar card. */
-@utility dot-pattern {
-    background-image: radial-gradient(#2dd4bf 1px, transparent 1px);
-    background-size: 16px 16px;
-}
-
-/* The one surface every card on the page is cut from: a translucent dark teal
-   panel with a hairline edge that warms up on hover. */
-@utility glass-card {
-    border: 1px solid rgb(29 62 69 / 0.7);
-    background-color: rgb(13 31 35 / 0.7);
-
-    &:hover {
-        border-color: rgb(45 212 191 / 0.4);
-    }
-}
-
-/* The status dot's slow breath. */
-@utility status-pulse {
-    animation: status-pulse 2.2s ease-in-out infinite;
-}
-
-@keyframes status-pulse {
-    0%,
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: 0.45;
-        transform: scale(0.9);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .status-pulse {
-        animation: none;
-    }
 }
 
 /* A thin scrollbar for the horizontal scrollers, instead of the OS one. */
@@ -335,125 +288,4 @@
 .auth-surface .text-red-600,
 .auth-surface .dark\:text-red-400 {
     color: #b91c1c;
-}
-
-/* ---- The opening screen ---- */
-/* The deck cover held full bleed. The meter fills on its own, but the door
-   opens only at 100 and only the visitor closes it, so the sequence is the
-   reference deck's preloader on this site's teal field. */
-.intro-loader {
-    animation: intro-loader-in 0.4s ease-out both;
-}
-
-.intro-loader__mark {
-    animation: intro-loader-pulse 1.8s ease-in-out infinite;
-}
-
-/* The name wipes in from the left, so it reads as running out to the right. */
-.intro-loader__name {
-    animation: intro-loader-name 0.7s cubic-bezier(0.65, 0, 0.35, 1) both;
-}
-
-/* The character then lands on top of the name, just before it finishes. */
-.intro-loader__figure {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0.14em);
-    animation: intro-loader-figure 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
-}
-
-@keyframes intro-loader-name {
-    from {
-        clip-path: inset(0 100% 0 0);
-    }
-
-    to {
-        clip-path: inset(0);
-    }
-}
-
-@keyframes intro-loader-figure {
-    from {
-        opacity: 0;
-        transform: translate(-50%, 0.85em);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate(-50%, 0.14em);
-    }
-}
-
-.intro-loader[data-state='ready'] .intro-loader__mark,
-.intro-loader[data-state='leaving'] .intro-loader__mark {
-    animation: none;
-}
-
-.intro-loader__door {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(8px);
-    transition:
-        opacity 0.45s,
-        transform 0.45s;
-}
-
-.intro-loader[data-state='ready'] .intro-loader__door,
-.intro-loader[data-state='leaving'] .intro-loader__door {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
-}
-
-.intro-loader[data-state='leaving'] {
-    animation: intro-loader-out 0.7s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-}
-
-@keyframes intro-loader-in {
-    from {
-        opacity: 0;
-    }
-}
-
-@keyframes intro-loader-pulse {
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.55;
-    }
-}
-
-@keyframes intro-loader-out {
-    0% {
-        clip-path: inset(0);
-        visibility: visible;
-    }
-
-    100% {
-        clip-path: inset(0 0 100% 0);
-        visibility: hidden;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .intro-loader,
-    .intro-loader__mark,
-    .intro-loader__name,
-    .intro-loader__figure {
-        animation: none;
-    }
-
-    .intro-loader__door {
-        transition: none;
-    }
-
-    /* Still an animation, just an instant one: the exit ends the sequence
-       through its animationend, so removing it outright would strand the
-       overlay on anyone who turns reduced motion on mid-visit. */
-    .intro-loader[data-state='leaving'] {
-        animation: 10ms step-end forwards intro-loader-out;
-    }
 }
