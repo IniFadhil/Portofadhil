@@ -1,0 +1,459 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans:
+        'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+
+    /* ---- Portfolio tokens (near-black teal deck, sand type, teal accent) ---- */
+    --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-ui: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    /* The portfolio surfaces, darkest to lightest. */
+    --color-deck-950: #0a1618;
+    --color-deck-900: #0d1f23;
+    --color-deck-850: #11282e;
+    --color-deck-800: #16333a;
+    --color-deck-700: #1d3e45;
+
+    --color-accent-teal: #2dd4bf;
+    --color-accent-mint: #5eead4;
+    --color-accent-cyan: #38bdf8;
+
+    --color-sand: #f5f0e6;
+    --color-slate-muted: #8da5a8;
+
+    /* ---- Auth tokens: the gold surface, untouched by the portfolio palette ---- */
+    --color-ink-950: #0b2e3a;
+    --color-ink-850: #12414f;
+    --color-line: #1d5768;
+
+    --color-jade-300: #b6f2e6;
+    --color-jade-400: #7adfc9;
+
+    --color-mist-100: #f2ead6;
+    --color-mist-300: #d7e8e9;
+    --color-mist-400: #9cc0c8;
+
+    /* The wall the teal panels float on: greyish white paper. */
+    --color-paper: #e9e7e1;
+    --color-paper-deep: #dcd9d0;
+
+    /* Gold is an accent only: the auth sidebar surface and the call to action. */
+    --color-gold-300: #f3dd9e;
+    --color-gold-400: #ddb968;
+    --color-gold-500: #b98a2f;
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --destructive-foreground: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.87 0 0);
+    --chart-1: oklch(0.646 0.222 41.116);
+    --chart-2: oklch(0.6 0.118 184.704);
+    --chart-3: oklch(0.398 0.07 227.392);
+    --chart-4: oklch(0.828 0.189 84.429);
+    --chart-5: oklch(0.769 0.188 70.08);
+    --radius: 0.625rem;
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.87 0 0);
+}
+
+.dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.145 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.145 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.985 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.396 0.141 25.723);
+    --destructive-foreground: oklch(0.637 0.237 25.331);
+    --border: oklch(0.269 0 0);
+    --input: oklch(0.269 0 0);
+    --ring: oklch(0.439 0 0);
+    --chart-1: oklch(0.488 0.243 264.376);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.769 0.188 70.08);
+    --chart-4: oklch(0.627 0.265 303.9);
+    --chart-5: oklch(0.645 0.246 16.439);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.985 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(0.269 0 0);
+    --sidebar-ring: oklch(0.439 0 0);
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+/* ---- Portfolio global theme ---- */
+/* Unlayered so it wins over Tailwind's base layer + utilities. */
+::selection {
+    background-color: #2dd4bf;
+    color: #0a1618;
+}
+
+/* The portfolio deck: one flat near-black teal behind the ambient glows. */
+@utility deck-field {
+    background-color: #0a1618;
+}
+
+/* The faint blueprint grid the hero and the page sit on. */
+@utility grid-pattern {
+    background-size: 32px 32px;
+    background-image:
+        linear-gradient(to right, rgb(45 212 191 / 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(45 212 191 / 0.035) 1px, transparent 1px);
+}
+
+/* A dotted field, used inside the avatar card. */
+@utility dot-pattern {
+    background-image: radial-gradient(#2dd4bf 1px, transparent 1px);
+    background-size: 16px 16px;
+}
+
+/* The one surface every card on the page is cut from: a translucent dark teal
+   panel with a hairline edge that warms up on hover. */
+@utility glass-card {
+    border: 1px solid rgb(29 62 69 / 0.7);
+    background-color: rgb(13 31 35 / 0.7);
+
+    &:hover {
+        border-color: rgb(45 212 191 / 0.4);
+    }
+}
+
+/* The status dot's slow breath. */
+@utility status-pulse {
+    animation: status-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.45;
+        transform: scale(0.9);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .status-pulse {
+        animation: none;
+    }
+}
+
+/* A thin scrollbar for the horizontal scrollers, instead of the OS one. */
+@utility custom-scrollbar {
+    &::-webkit-scrollbar {
+        height: 6px;
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #1e454d;
+        border-radius: 9999px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgb(10 22 24 / 0.6);
+    }
+}
+
+/* The deck look: a teal gradient wall behind everything, and the slightly
+   lighter gradient tile used for every panel. */
+@utility deck-page {
+    background-image: radial-gradient(
+        130% 90% at 15% 0%,
+        #1c6274 0%,
+        #103f4e 46%,
+        #0a2731 100%
+    );
+}
+
+@utility panel-deck {
+    background-image: linear-gradient(
+        158deg,
+        #1d5f74 0%,
+        #144a5b 52%,
+        #0e3745 100%
+    );
+}
+
+/* The portfolio wall: greyish white paper. The two hairline gradients are the
+   grain; swap them for a feTurbulence tile if a coarser paper is wanted. */
+@utility paper-page {
+    background-color: #e9e7e1;
+    background-image:
+        radial-gradient(
+            125% 70% at 50% -12%,
+            #f6f4ef 0%,
+            #e9e7e1 46%,
+            #dcd9d0 100%
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgb(11 46 58 / 0.016) 0 1px,
+            transparent 1px 3px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            rgb(11 46 58 / 0.016) 0 1px,
+            transparent 1px 3px
+        );
+}
+
+/* The auth sidebar: the one large gold surface on the site. */
+@utility gold-deck {
+    background-image: linear-gradient(
+        165deg,
+        #edd391 0%,
+        #dcb968 42%,
+        #b98a2f 100%
+    );
+}
+
+/* The auth form sits on a light neutral surface, so pin the shadcn tokens to
+   their light values. The panel then reads the same in either app theme. */
+@utility auth-surface {
+    --background: #f2ead6;
+    --foreground: #1b1b18;
+    --muted-foreground: #6f6a5f;
+    --border: #ded6c4;
+    --input: #ded6c4;
+    --ring: #b98a2f;
+    --primary: #0b2e3a;
+    --primary-foreground: #f2ead6;
+    --destructive: #b91c1c;
+    --destructive-foreground: #b91c1c;
+
+    background-color: #f2ead6;
+    color: #1b1b18;
+}
+
+/* Keep error text dark enough on that surface in either theme. */
+.auth-surface .text-red-600,
+.auth-surface .dark\:text-red-400 {
+    color: #b91c1c;
+}
+
+/* ---- The opening screen ---- */
+/* The deck cover held full bleed. The meter fills on its own, but the door
+   opens only at 100 and only the visitor closes it, so the sequence is the
+   reference deck's preloader on this site's teal field. */
+.intro-loader {
+    animation: intro-loader-in 0.4s ease-out both;
+}
+
+.intro-loader__mark {
+    animation: intro-loader-pulse 1.8s ease-in-out infinite;
+}
+
+/* The name wipes in from the left, so it reads as running out to the right. */
+.intro-loader__name {
+    animation: intro-loader-name 0.7s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+/* The character then lands on top of the name, just before it finishes. */
+.intro-loader__figure {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0.14em);
+    animation: intro-loader-figure 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+@keyframes intro-loader-name {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+
+    to {
+        clip-path: inset(0);
+    }
+}
+
+@keyframes intro-loader-figure {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 0.85em);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0.14em);
+    }
+}
+
+.intro-loader[data-state='ready'] .intro-loader__mark,
+.intro-loader[data-state='leaving'] .intro-loader__mark {
+    animation: none;
+}
+
+.intro-loader__door {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition:
+        opacity 0.45s,
+        transform 0.45s;
+}
+
+.intro-loader[data-state='ready'] .intro-loader__door,
+.intro-loader[data-state='leaving'] .intro-loader__door {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.intro-loader[data-state='leaving'] {
+    animation: intro-loader-out 0.7s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes intro-loader-in {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes intro-loader-pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.55;
+    }
+}
+
+@keyframes intro-loader-out {
+    0% {
+        clip-path: inset(0);
+        visibility: visible;
+    }
+
+    100% {
+        clip-path: inset(0 0 100% 0);
+        visibility: hidden;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .intro-loader,
+    .intro-loader__mark,
+    .intro-loader__name,
+    .intro-loader__figure {
+        animation: none;
+    }
+
+    .intro-loader__door {
+        transition: none;
+    }
+
+    /* Still an animation, just an instant one: the exit ends the sequence
+       through its animationend, so removing it outright would strand the
+       overlay on anyone who turns reduced motion on mid-visit. */
+    .intro-loader[data-state='leaving'] {
+        animation: 10ms step-end forwards intro-loader-out;
+    }
+}
