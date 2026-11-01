@@ -217,6 +217,20 @@
     }
 }
 
+/* The projects band reads its colour from these, so the whole section can be
+   re-themed in one place. */
+@utility project-band {
+    --pj-bg: #0a1618;
+    --pj-ink: #e9ece9;
+    --pj-body: #9db3b1;
+    --pj-faint: #9db3b1;
+    --pj-line: #16333a;
+    --pj-accent: #2dd4bf;
+
+    background-color: var(--pj-bg);
+    color: var(--pj-ink);
+}
+
 @media (prefers-reduced-motion: reduce) {
     .status-pulse {
         animation: none;

@@ -39,7 +39,7 @@ export default function SiteHeader({
                         {PROFILE.name}
                     </span>
 
-                    <span className="flex w-fit shrink-0 items-center gap-1.5 rounded-full bg-deck-900 px-2.5 py-0.5">
+                    <span className="hidden w-fit shrink-0 items-center gap-1.5 rounded-full bg-deck-900 px-2.5 py-0.5 sm:flex">
                         <span
                             aria-hidden
                             className="size-2 status-pulse rounded-full bg-accent-teal"
@@ -89,10 +89,10 @@ export default function SiteHeader({
                 </div>
             </div>
 
-            <div className="xl:hidden">
+            <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1.5 px-5 pb-3 sm:px-8 xl:hidden">
                 <nav
                     aria-label={copy.sections}
-                    className="flex flex-wrap gap-x-6 gap-y-1.5 px-5 pb-3 text-sm font-semibold text-slate-muted sm:px-8"
+                    className="flex flex-wrap gap-x-6 gap-y-1.5 text-sm font-semibold text-slate-muted"
                 >
                     {SECTIONS.map(({ id, hash }) => (
                         <a
@@ -108,6 +108,14 @@ export default function SiteHeader({
                         </a>
                     ))}
                 </nav>
+
+                <div className="sm:hidden">
+                    <LanguageSwitch
+                        locale={locale}
+                        label={copy.language}
+                        onChange={onLocaleChange}
+                    />
+                </div>
             </div>
         </header>
     );

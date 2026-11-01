@@ -63,15 +63,8 @@ type Copy = {
     copyEmail: string;
     copiedEmail: string;
     language: string;
-    liveDemo: string;
-    sourceCode: string;
-    noPreview: string;
-    openInNewTab: string;
-    worksCarousel: string;
-    prevProject: string;
-    nextProject: string;
-    dragHint: string;
-    slideOf: string;
+    projectLink: string;
+    mockupPending: string;
     /** The opening screen. */
     introLabel: string;
     loadingLabel: string;
@@ -107,15 +100,8 @@ export const UI: Record<Locale, Copy> = {
         copyEmail: 'Salin email',
         copiedEmail: 'Tersalin',
         language: 'Bahasa',
-        liveDemo: 'Demo langsung',
-        sourceCode: 'Kode sumber',
-        noPreview: 'Preview belum tersedia',
-        openInNewTab: 'buka di tab baru',
-        worksCarousel: 'Galeri proyek',
-        prevProject: 'Proyek sebelumnya',
-        nextProject: 'Proyek berikutnya',
-        dragHint: 'Geser, atau pakai tombol panah kiri dan kanan.',
-        slideOf: 'dari',
+        projectLink: 'Buka proyek di tab baru',
+        mockupPending: 'Mockup menyusul',
         introLabel: 'Layar pembuka',
         loadingLabel: 'Memuat',
         continueLabel: 'Lanjutkan',
@@ -148,15 +134,8 @@ export const UI: Record<Locale, Copy> = {
         copyEmail: 'Copy email',
         copiedEmail: 'Copied',
         language: 'Language',
-        liveDemo: 'Live demo',
-        sourceCode: 'Source code',
-        noPreview: 'Preview not available',
-        openInNewTab: 'opens in a new tab',
-        worksCarousel: 'Project gallery',
-        prevProject: 'Previous project',
-        nextProject: 'Next project',
-        dragHint: 'Drag, or use the left and right arrow keys.',
-        slideOf: 'of',
+        projectLink: 'Open project in a new tab',
+        mockupPending: 'Mockup coming soon',
         introLabel: 'Opening screen',
         loadingLabel: 'Loading',
         continueLabel: 'Continue',
@@ -354,35 +333,15 @@ export const ABOUT = {
     } satisfies Localized,
 };
 
-export type ProjectCategory =
-    | 'Web Development'
-    | 'Game Development'
-    | 'Software Engineering'
-    | 'UI/UX Design';
-
-export const CATEGORY_LABELS: Record<ProjectCategory, Localized> = {
-    'Web Development': { id: 'Pengembangan Web', en: 'Web Development' },
-    'Game Development': { id: 'Pengembangan Game', en: 'Game Development' },
-    'Software Engineering': {
-        id: 'Rekayasa Perangkat Lunak',
-        en: 'Software Engineering',
-    },
-    'UI/UX Design': { id: 'Desain UI/UX', en: 'UI/UX Design' },
-};
-
 export type Project = {
+    id: string;
     title: string;
+    /** Two or three sentences: the whole text the panel shows. */
     description: Localized;
-    /** Screenshot path under public/. `null` renders a labelled placeholder. */
-    image: string | null;
-    /** Phone shaped shot of the same page. Falls back to `image`. */
-    imageMobile?: string | null;
-    technologies: string[];
-    category: ProjectCategory;
-    /** Localised so the meta line reads naturally in both languages. */
-    period: Localized | null;
-    demoUrl: string | null;
-    repositoryUrl: string | null;
+    tech: string[];
+    link: { label: string; url: string } | null;
+    /** A rendered device mockup with a transparent background, under public/. */
+    mockup: string | null;
 };
 
 export const WORKS = {
@@ -400,112 +359,80 @@ export const WORKS = {
         en: 'A few more experiments are not listed here yet.',
     },
     viewGithub: { id: 'Lihat semua di GitHub', en: 'See everything on GitHub' },
+    galleryLabel: { id: 'Galeri proyek', en: 'Project gallery' },
+    prevLabel: { id: 'Proyek sebelumnya', en: 'Previous project' },
+    nextLabel: { id: 'Proyek berikutnya', en: 'Next project' },
+    slideOf: { id: 'dari', en: 'of' },
     /** Ordered by recency. The number shown is derived from this order. */
     items: [
         {
+            id: 'smart-desa',
             title: 'Smart Desa',
             description: {
-                id: 'Portal resmi desa yang menyatukan informasi dan layanan publik dalam satu tempat. Warga dapat mengenal desanya melalui profil, sejarah, visi dan misi, kondisi geografis, hingga struktur dan perangkat desa. Untuk urusan administrasi, warga mendaftar dengan NIK, mengajukan surat keterangan sesuai kebutuhan, mengunggah persyaratan, lalu memantau sendiri sampai suratnya selesai tanpa perlu bolak-balik ke kantor desa. Situs ini juga menampilkan berita, pengumuman, agenda kegiatan, potensi dan program desa, produk unggulan BUMDes, serta galeri foto dan video, sementara perangkat desa mengelola seluruh konten dan permohonan dari satu dashboard. Hasilnya, informasi desa terbuka bagi siapa saja dan pelayanan surat berjalan lebih cepat, tertib, dan dapat ditelusuri.',
-                en: 'An official village portal that brings public information and services into one place. Residents can get to know their village through its profile, history, vision and mission, geography, and government structure. For administration, residents register with their national ID number, request the certificate they need, upload the required documents, and track the request themselves until it is finished without repeated trips to the village office. The site also presents news, announcements, event schedules, village potential and programmes, BUMDes flagship products, and photo and video galleries, while village staff manage all content and requests from a single dashboard. The result is village information that is open to everyone and letter services that are faster, more orderly, and traceable.',
+                id: 'Portal resmi desa yang menyatukan informasi dan layanan publik. Warga mengajukan surat keterangan dengan NIK dan memantau sendiri sampai selesai, sementara perangkat desa mengelola konten dan permohonan dari satu dashboard.',
+                en: 'An official village portal that brings public information and services together. Residents request certificates with their national ID and track them to completion, while village staff run content and requests from a single dashboard.',
             },
-            image: '/images/projects/smart-desa.png',
-            technologies: ['Laravel 12', 'MySQL', 'Tailwind CSS'],
-            category: 'Web Development',
-            period: { id: '2025', en: '2025' },
-            demoUrl: null,
-            repositoryUrl: null,
+            tech: ['Laravel 12', 'MySQL', 'Tailwind CSS'],
+            link: null,
+            mockup: '/images/projects/smart-desa.webp',
         },
         {
+            id: 'symphonia',
             title: 'Symphonia',
             description: {
-                id: 'Platform yang mempertemukan pemilik instrumen dengan musisi, komunitas, dan masyarakat yang membutuhkan alat musik. Katalognya memuat instrumen modern maupun tradisional, sehingga penyewa dapat menimbang pilihan sebelum menentukan. Prosesnya berjalan dalam satu alur yang utuh: reservasi diajukan, transaksi dikelola, lalu peminjaman dan pengembalian dipantau hingga instrumen kembali ke pemiliknya. Penyewa tidak perlu lagi mencari dan menegosiasikan sewa secara manual, sementara pengelola mendapat catatan siklus penyewaan yang rapi di satu tempat.',
-                en: 'A platform that connects instrument owners with musicians, communities, and anyone in need of a musical instrument. Its catalogue covers both modern and traditional instruments, so renters can weigh their options before deciding. The process runs as one continuous flow: a reservation is made, the transaction is managed, and the loan and return are tracked until the instrument is back with its owner. Renters no longer have to hunt for and negotiate a rental by hand, while owners get a tidy record of every rental cycle in one place.',
+                id: 'Platform yang mempertemukan pemilik instrumen dengan musisi dan komunitas yang membutuhkan alat musik. Reservasi, transaksi, peminjaman, dan pengembalian berjalan dalam satu alur, sehingga siklus sewa tercatat rapi di satu tempat.',
+                en: 'A platform that connects instrument owners with musicians and communities in need of an instrument. Reservations, payments, loans, and returns run as one flow, so every rental cycle is recorded in one place.',
             },
-            image: null,
-            technologies: ['Laravel 11'],
-            category: 'Web Development',
-            period: { id: 'Okt 2024 - Jan 2025', en: 'Oct 2024 - Jan 2025' },
-            demoUrl: null,
-            repositoryUrl: null,
+            tech: ['Laravel 11'],
+            link: null,
+            mockup: null,
         },
         {
+            id: 'body-explorer',
             title: 'Body Explorer',
             description: {
-                id: 'Game edukasi yang mengenalkan bagian-bagian tubuh manusia kepada anak melalui permainan drag-and-drop. Pemain menyeret setiap bagian tubuh dan meletakkannya pada posisi yang tepat di atas ilustrasi tubuh manusia. Aktivitas ini melatih anak mengingat nama sekaligus letak bagian tubuh tanpa terasa seperti menghafal. Karena belajar berjalan lewat mencoba langsung, anak dapat mengulanginya dengan senang sampai susunannya benar-benar dipahami.',
-                en: 'An educational game that introduces children to the parts of the human body through drag-and-drop play. Players drag each body part and place it in the right position on an illustration of the human body. The activity trains children to remember both the name and the location of each part without it feeling like memorisation. Because the learning happens by doing, children happily repeat it until the arrangement is truly understood.',
+                id: 'Game edukasi yang mengenalkan bagian tubuh manusia lewat permainan drag-and-drop. Anak menyeret tiap bagian ke posisi yang tepat di atas ilustrasi tubuh, sehingga nama dan letaknya terlatih tanpa terasa seperti menghafal.',
+                en: 'An educational game that introduces the parts of the human body through drag-and-drop play. Children drag each part onto the right spot on an illustration, so names and locations stick without feeling like memorisation.',
             },
-            image: null,
-            technologies: ['Adobe Animate', 'Canva'],
-            category: 'Game Development',
-            period: { id: 'Mar 2024 - Jun 2024', en: 'Mar 2024 - Jun 2024' },
-            demoUrl: null,
-            repositoryUrl: null,
+            tech: ['Adobe Animate', 'Canva'],
+            link: null,
+            mockup: null,
         },
         {
+            id: 'campusnews',
             title: 'CampusNews',
             description: {
-                id: 'Portal artikel yang mengulas perkembangan teknologi informasi. Pembaca dapat mencari tulisan berdasarkan kata kunci dan mengurutkan daftar konten sesuai kebutuhan, sementara autentikasi pengguna menjaga akses ke bagian tertentu tetap terkendali. Penulis dan pengelola mengatur seluruh publikasi melalui dashboard administrator, termasuk menyiapkan laporan PDF sebagai rekap konten. Portal ini memudahkan pembaca menemukan bacaan yang relevan, sekaligus memberi pengelola kendali penuh atas isi situs.',
-                en: 'An article portal covering developments in information technology. Readers can search for pieces by keyword and sort the list of content to suit their needs, while user authentication keeps access to certain areas under control. Writers and managers arrange the whole publication through an administrator dashboard, including preparing PDF reports as a recap of the content. The portal helps readers find relevant reading while giving managers full control over what the site holds.',
+                id: 'Portal artikel yang mengulas perkembangan teknologi informasi, lengkap dengan pencarian kata kunci dan pengurutan konten. Penulis dan pengelola mengatur publikasi lewat dashboard administrator, termasuk laporan PDF sebagai rekap.',
+                en: 'An article portal covering developments in information technology, with keyword search and sortable content. Writers and managers handle publication through an administrator dashboard, including PDF reports as a recap.',
             },
-            image: null,
-            technologies: ['HTML', 'PHP', 'Bootstrap'],
-            category: 'Web Development',
-            period: { id: 'Mar 2023 - Jun 2023', en: 'Mar 2023 - Jun 2023' },
-            demoUrl: null,
-            repositoryUrl: null,
+            tech: ['HTML', 'PHP', 'Bootstrap'],
+            link: null,
+            mockup: null,
         },
         {
-            title: 'Cat Jump',
-            description: {
-                id: 'Game kasual yang mengajak pemain mengendalikan seekor kucing untuk melewati rangkaian rintangan. Seluruh tantangan bertumpu pada mekanisme lompatan, sehingga pemain perlu menakar waktu dan jarak lompatan dengan tepat. Tingkat kesulitannya menuntut ketepatan gerakan dan koordinasi yang semakin terlatih seiring permainan berjalan. Sederhana untuk dipahami, tetapi tetap menantang untuk dikuasai.',
-                en: 'A casual game that has players steer a cat through a series of obstacles. Every challenge rests on the jump mechanic, so players must judge the timing and distance of each leap. The difficulty demands precision and coordination that sharpen as the game goes on. Simple to pick up, yet still a challenge to master.',
-            },
-            image: null,
-            technologies: ['Scratch', 'Canva'],
-            category: 'Game Development',
-            period: { id: 'Nov 2022 - Jan 2023', en: 'Nov 2022 - Jan 2023' },
-            demoUrl: null,
-            repositoryUrl: null,
-        },
-        {
+            id: 'website-portofolio',
             title: 'Website Portofolio',
             description: {
-                id: 'Situs pribadi yang merangkum profil, keterampilan, pengalaman, pencapaian, dan proyek yang pernah saya kerjakan. Seluruh informasi disusun agar mudah ditelusuri, sehingga pengunjung dapat menilai kompetensi dan hasil karya tanpa berpindah-pindah sumber. Situs ini menjadi perkenalan profesional sekaligus wadah untuk menampilkan pekerjaan terbaik saya kepada calon klien, perekrut, maupun kolaborator.',
-                en: 'A personal site that gathers my profile, skills, experience, achievements, and the projects I have worked on. Everything is arranged so it is easy to browse, letting visitors assess my competence and output without jumping between sources. The site serves as a professional introduction and a place to present my best work to prospective clients, recruiters, and collaborators.',
+                id: 'Situs pribadi yang merangkum profil, keterampilan, pengalaman, pencapaian, dan proyek yang pernah saya kerjakan. Semuanya disusun agar mudah ditelusuri, sehingga pengunjung dapat menilai kompetensi dan hasil karya dari satu sumber.',
+                en: 'A personal site that gathers my profile, skills, experience, achievements, and the projects I have worked on. Everything is arranged to be easy to browse, so visitors can judge my competence and output from a single source.',
             },
-            image: null,
-            technologies: ['HTML', 'CSS', 'JavaScript'],
-            category: 'Web Development',
-            period: { id: 'Okt 2022 - Nov 2022', en: 'Oct 2022 - Nov 2022' },
-            demoUrl: null,
-            repositoryUrl: null,
+            tech: ['HTML', 'CSS', 'JavaScript'],
+            link: null,
+            mockup: null,
         },
         {
-            title: 'E-Waste',
-            description: {
-                id: 'Aplikasi mobile yang membantu pengguna menangani limbah elektronik dengan lebih tertata. Lewat antarmukanya, pengguna dapat mengakses fungsi-fungsi yang berkaitan dengan penanganan sampah elektronik, mulai dari pendataan hingga pengelolaannya. Karena semuanya dapat dilakukan langsung dari ponsel, limbah elektronik lebih mudah dipisahkan dan tidak lagi bercampur dengan sampah rumah tangga biasa.',
-                en: 'A mobile app that helps users handle electronic waste more systematically. Through its interface, users can reach the functions involved in dealing with electronic waste, from recording it to managing it. Because all of it can be done straight from a phone, electronic waste is easier to set aside and no longer ends up mixed in with ordinary household rubbish.',
-            },
-            image: null,
-            technologies: ['Kotlin', 'XML layouts', 'Android'],
-            category: 'Software Engineering',
-            period: null,
-            demoUrl: null,
-            repositoryUrl: null,
-        },
-        {
+            id: 'spacedash',
             title: 'SpaceDash: Alien Shooter',
             description: {
-                id: 'Bagian dari seri Absolute Zero Mini Games, SpaceDash: Alien Shooter membawa pemain ke pertempuran antariksa melawan serangan alien. Pemain mengendalikan karakter untuk menghadapi gelombang musuh dan bertahan selama mungkin di tengah tekanan serangan yang terus datang. Permainan menuntut kewaspadaan dan pengambilan keputusan cepat, sehingga setiap sesi terasa menegangkan.',
-                en: 'Part of the Absolute Zero Mini Games series, SpaceDash: Alien Shooter takes players into a space battle against an alien onslaught. Players control a character to face waves of enemies and survive as long as they can under the pressure of relentless attacks. The game calls for alertness and quick decisions, making every session tense.',
+                id: 'Bagian dari seri Absolute Zero Mini Games: pemain membawa pesawat melawan gelombang alien di luar angkasa. Permainan menuntut kewaspadaan dan keputusan cepat untuk bertahan selama mungkin.',
+                en: 'Part of the Absolute Zero Mini Games series: players take a ship into space against waves of aliens. It calls for alertness and quick decisions to survive as long as possible.',
             },
-            image: null,
-            technologies: [],
-            category: 'Game Development',
-            period: null,
-            demoUrl: null,
-            repositoryUrl:
-                'https://github.com/DikiFaturrohman/absolute-zero-mini-games',
+            tech: [],
+            link: {
+                label: 'github.com',
+                url: 'https://github.com/DikiFaturrohman/absolute-zero-mini-games',
+            },
+            mockup: null,
         },
     ] satisfies Project[],
 };

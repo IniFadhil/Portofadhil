@@ -1,7 +1,5 @@
-import Section from '@/components/portfolio/atoms/section';
-import SectionHeading from '@/components/portfolio/atoms/section-heading';
-import ProjectShowcase from '@/components/portfolio/molecules/project-showcase';
-import { PROFILE, UI, WORKS } from '@/data/portfolio';
+import ProjectPanel from '@/components/portfolio/molecules/project-panel';
+import { WORKS } from '@/data/portfolio';
 import type { Locale } from '@/data/portfolio';
 import { useReducedMotion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -15,16 +13,11 @@ const CONTROL =
     'inline-flex items-center justify-center rounded-lg bg-deck-800 p-2.5 text-sand transition-colors hover:bg-deck-700 focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:ring-offset-2 focus-visible:ring-offset-deck-950 focus-visible:outline-none disabled:bg-deck-900 disabled:text-slate-muted/50 disabled:hover:bg-deck-900 motion-reduce:transition-none';
 
 /**
- * The projects as one featured card at a time, on every width. It rides native
- * scroll snapping, so drag, swipe, trackpad and momentum come from the browser
- * and every slide lands flush; the arrows, the arrow keys and the counter are
- * the only things added on top.
- *
- * The scroller keeps `relative` so the absolutely positioned phone inside a
- * slide stays clipped by it instead of scrolling the document sideways.
+ * The projects: one full-height panel per view, moving sideways. The track is a
+ * native scroll container, so drag, swipe and momentum come from the browser
+ * and every panel lands flush; the arrows and the arrow keys sit on top of it.
  */
 export default function WorksSection({ locale }: WorksSectionProps) {
-    const copy = UI[locale];
     const total = WORKS.items.length;
     const track = useRef<HTMLDivElement>(null);
     const [index, setIndex] = useState(0);
@@ -81,15 +74,30 @@ export default function WorksSection({ locale }: WorksSectionProps) {
     }, []);
 
     return (
-        <Section id="proyek">
-            <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-                <SectionHeading
-                    title={WORKS.title[locale]}
-                    lead={WORKS.lead[locale]}
-                />
+        <section
+            id="proyek"
+            aria-labelledby="proyek-title"
+            className="relative w-full scroll-mt-24"
+        >
+            <div className="mx-auto flex w-full max-w-7xl flex-wrap items-end justify-between gap-6 px-5 pt-20 sm:px-8">
+                <div>
+                    <h2
+                        id="proyek-title"
+                        className="font-display text-4xl font-black tracking-[-0.02em] text-sand uppercase sm:text-5xl"
+                    >
+                        {WORKS.title[locale]}
+                    </h2>
+
+                    <p className="mt-3 max-w-2xl text-base text-slate-muted">
+                        {WORKS.lead[locale]}
+                    </p>
+                </div>
 
                 <div className="flex shrink-0 items-center gap-3">
-                    <span className="text-sm text-slate-muted tabular-nums">
+                    <span
+                        aria-hidden
+                        className="font-mono text-sm text-slate-muted tabular-nums"
+                    >
                         {index + 1} / {total}
                     </span>
 
@@ -97,7 +105,7 @@ export default function WorksSection({ locale }: WorksSectionProps) {
                         type="button"
                         onClick={() => goTo(index - 1)}
                         disabled={index <= 0}
-                        aria-label={copy.prevProject}
+                        aria-label={WORKS.prevLabel[locale]}
                         className={CONTROL}
                     >
                         <ChevronLeft className="size-4" aria-hidden />
@@ -106,7 +114,7 @@ export default function WorksSection({ locale }: WorksSectionProps) {
                         type="button"
                         onClick={() => goTo(index + 1)}
                         disabled={index >= total - 1}
-                        aria-label={copy.nextProject}
+                        aria-label={WORKS.nextLabel[locale]}
                         className={CONTROL}
                     >
                         <ChevronRight className="size-4" aria-hidden />
@@ -118,7 +126,7 @@ export default function WorksSection({ locale }: WorksSectionProps) {
                 ref={track}
                 role="group"
                 aria-roledescription="carousel"
-                aria-label={copy.worksCarousel}
+                aria-label={WORKS.galleryLabel[locale]}
                 tabIndex={0}
                 onKeyDown={(event) => {
                     if (event.key === 'ArrowLeft') {
@@ -131,33 +139,24 @@ export default function WorksSection({ locale }: WorksSectionProps) {
                         goTo(index + 1);
                     }
                 }}
-                className="relative flex snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto overscroll-x-contain pb-1 focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:ring-offset-2 focus-visible:ring-offset-deck-950 focus-visible:outline-none [&::-webkit-scrollbar]:hidden"
+                className="mt-8 flex snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto overscroll-x-contain focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:ring-offset-2 focus-visible:ring-offset-deck-950 focus-visible:outline-none [&::-webkit-scrollbar]:hidden"
             >
                 {WORKS.items.map((project, position) => (
                     <div
-                        key={project.title}
+                        key={project.id}
                         role="group"
                         aria-roledescription="slide"
-                        aria-label={`${position + 1} ${copy.slideOf} ${total}`}
-                        className="relative w-full shrink-0 snap-center"
+                        aria-label={`${position + 1} ${WORKS.slideOf[locale]} ${total}`}
+                        className="w-full shrink-0 snap-center"
                     >
-                        <ProjectShowcase project={project} locale={locale} />
+                        <ProjectPanel
+                            project={project}
+                            index={position}
+                            locale={locale}
+                        />
                     </div>
                 ))}
             </div>
-
-            <div className="flex flex-col items-center justify-between gap-2 pt-6 text-sm text-slate-muted sm:flex-row">
-                <p>{copy.dragHint}</p>
-                <a
-                    href={PROFILE.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm font-semibold transition-colors hover:text-accent-teal"
-                >
-                    <span>{WORKS.viewGithub[locale]}</span>
-                    <ChevronRight className="size-3.5" aria-hidden />
-                </a>
-            </div>
-        </Section>
+        </section>
     );
 }
