@@ -342,6 +342,8 @@ export type Project = {
     link: { label: string; url: string } | null;
     /** A rendered device mockup with a transparent background, under public/. */
     mockup: string | null;
+    /** A screen drawn in code, for the games that have no screenshot yet. */
+    screen: 'spacedash' | 'body-explorer' | null;
 };
 
 export const WORKS = {
@@ -351,8 +353,8 @@ export const WORKS = {
         en: 'A Few Things I Have Built',
     },
     lead: {
-        id: 'Pekerjaan pengembangan software, situs web, dan game dari 2022 sampai 2025, termasuk portal informasi dan layanan publik Desa Kasomalang Kulon.',
-        en: 'Software, web, and game development work from 2022 to 2025, including the public information and service portal for Desa Kasomalang Kulon.',
+        id: 'Pekerjaan pengembangan software, situs web, dan game dari 2022 sampai 2025, termasuk Smart Desa, portal desa yang dibangun mengikuti regulasi Peraturan Bupati Subang.',
+        en: 'Software, web, and game development work from 2022 to 2025, including Smart Desa, a village portal built to the Subang regent regulation.',
     },
     more: {
         id: 'Masih ada beberapa eksperimen lain yang belum saya tulis di sini.',
@@ -369,12 +371,13 @@ export const WORKS = {
             id: 'smart-desa',
             title: 'Smart Desa',
             description: {
-                id: 'Portal resmi desa yang menyatukan informasi dan layanan publik. Warga mengajukan surat keterangan dengan NIK dan memantau sendiri sampai selesai, sementara perangkat desa mengelola konten dan permohonan dari satu dashboard.',
-                en: 'An official village portal that brings public information and services together. Residents request certificates with their national ID and track them to completion, while village staff run content and requests from a single dashboard.',
+                id: 'Portal resmi desa yang dibangun mengikuti regulasi Peraturan Bupati Subang. Warga mengajukan surat keterangan dengan NIK dan memantau sendiri sampai selesai, sementara perangkat desa mengelola konten dan permohonan dari satu dashboard.',
+                en: 'An official village portal built to the Subang regent regulation. Residents request certificates with their national ID and track them to completion, while village staff run content and requests from a single dashboard.',
             },
             tech: ['Laravel 12', 'MySQL', 'Tailwind CSS'],
             link: null,
             mockup: '/images/projects/smart-desa.webp',
+            screen: null,
         },
         {
             id: 'symphonia',
@@ -386,6 +389,7 @@ export const WORKS = {
             tech: ['Laravel 11'],
             link: null,
             mockup: null,
+            screen: null,
         },
         {
             id: 'body-explorer',
@@ -397,6 +401,7 @@ export const WORKS = {
             tech: ['Adobe Animate', 'Canva'],
             link: null,
             mockup: null,
+            screen: 'body-explorer',
         },
         {
             id: 'campusnews',
@@ -408,6 +413,7 @@ export const WORKS = {
             tech: ['HTML', 'PHP', 'Bootstrap'],
             link: null,
             mockup: null,
+            screen: null,
         },
         {
             id: 'website-portofolio',
@@ -419,6 +425,7 @@ export const WORKS = {
             tech: ['HTML', 'CSS', 'JavaScript'],
             link: null,
             mockup: null,
+            screen: null,
         },
         {
             id: 'spacedash',
@@ -433,6 +440,7 @@ export const WORKS = {
                 url: 'https://github.com/DikiFaturrohman/absolute-zero-mini-games',
             },
             mockup: null,
+            screen: 'spacedash',
         },
     ] satisfies Project[],
 };

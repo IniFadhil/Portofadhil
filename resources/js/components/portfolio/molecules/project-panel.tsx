@@ -1,5 +1,6 @@
 import { UI } from '@/data/portfolio';
 import type { Locale, Project } from '@/data/portfolio';
+import ProjectPreview from '@/components/portfolio/molecules/project-preview';
 import { useReveal } from '@/hooks/use-reveal';
 import { cn } from '@/lib/utils';
 import { ArrowUpRight } from 'lucide-react';
@@ -81,21 +82,7 @@ export default function ProjectPanel({
                     'motion-safe:data-[revealed=true]:translate-x-0 motion-safe:data-[revealed=true]:opacity-100',
                 )}
             >
-                {project.mockup ? (
-                    <img
-                        src={project.mockup}
-                        alt={`Mockup ${project.title}`}
-                        width={1280}
-                        height={800}
-                        loading="lazy"
-                        decoding="async"
-                        className="mx-auto block h-auto w-full object-contain transition-transform duration-500 ease-out hover:-translate-y-1 hover:scale-[1.02] motion-reduce:transform-none"
-                    />
-                ) : (
-                    <p className="flex aspect-[16/10] w-full items-center justify-center font-mono text-[13px] tracking-[0.15em] text-slate-muted/50 uppercase">
-                        {copy.mockupPending}
-                    </p>
-                )}
+                <ProjectPreview project={project} locale={locale} />
             </div>
         </article>
     );
