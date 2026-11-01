@@ -1,10 +1,14 @@
 node_modules
+vendor
+.git
 .taste-skill
 .agents
 .claude
 storage/logs/*.log
 storage/inertia-devtools
 database/database.sqlite
+bootstrap/cache/*.php
 public/hot
 public/fonts-manifest.dev.json
 tests
+*.whl
