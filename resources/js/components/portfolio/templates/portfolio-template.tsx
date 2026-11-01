@@ -69,7 +69,7 @@ export default function PortfolioTemplate({
                     <ContactSection locale={locale} />
                 </main>
 
-                <SiteFooter locale={locale} />
+                <SiteFooter />
             </div>
 
             {intro ? (

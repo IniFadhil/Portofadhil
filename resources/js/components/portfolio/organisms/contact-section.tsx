@@ -42,6 +42,18 @@ export default function ContactSection({ locale }: ContactSectionProps) {
             href: PROFILE.github,
             external: true,
         },
+        {
+            label: CONTACT.labels.linkedin[locale],
+            value: PROFILE.linkedinHandle,
+            href: PROFILE.linkedin,
+            external: true,
+        },
+        {
+            label: CONTACT.labels.instagram[locale],
+            value: PROFILE.instagramHandle,
+            href: PROFILE.instagram,
+            external: true,
+        },
     ];
 
     return (

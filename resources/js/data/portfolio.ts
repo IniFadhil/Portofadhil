@@ -23,6 +23,10 @@ export const PROFILE = {
     githubHandle: '@IniFadhil',
     /** Bare login, for the public contribution chart. */
     githubUser: 'IniFadhil',
+    linkedin: 'https://www.linkedin.com/in/fadhil-rizki-fauzan-16552b448/',
+    linkedinHandle: 'fadhil-rizki-fauzan-16552b448',
+    instagram: 'https://www.instagram.com/fadhil.rf/',
+    instagramHandle: '@fadhil.rf',
     cv: '/cv/fadhil-rizki-fauzan.pdf',
 } as const;
 
@@ -340,10 +344,11 @@ export type Project = {
     description: Localized;
     tech: string[];
     link: { label: string; url: string } | null;
-    /** A rendered device mockup with a transparent background, under public/. */
-    mockup: string | null;
-    /** A screen drawn in code, for the games that have no screenshot yet. */
-    screen: 'spacedash' | 'body-explorer' | null;
+    /** Screenshots under public/, one per frame. A frame with no shot is left
+     *  out, never filled with the wrong device. */
+    mockups: { laptop?: string; tablet?: string; phone?: string } | null;
+    /** The games sit in a pair of phones: menu first, then play. */
+    phones: [string, string] | null;
 };
 
 export const WORKS = {
@@ -376,8 +381,12 @@ export const WORKS = {
             },
             tech: ['Laravel 12', 'MySQL', 'Tailwind CSS'],
             link: null,
-            mockup: '/images/projects/smart-desa.webp',
-            screen: null,
+            mockups: {
+                laptop: '/images/projects/smart-desa-laptop.webp',
+                tablet: '/images/projects/smart-desa-tablet.webp',
+                phone: '/images/projects/smart-desa-phone.webp',
+            },
+            phones: null,
         },
         {
             id: 'symphonia',
@@ -388,8 +397,11 @@ export const WORKS = {
             },
             tech: ['Laravel 11'],
             link: null,
-            mockup: null,
-            screen: null,
+            mockups: {
+                laptop: '/images/projects/symphonia-laptop.webp',
+                tablet: '/images/projects/symphonia-tablet.webp',
+            },
+            phones: null,
         },
         {
             id: 'body-explorer',
@@ -400,8 +412,11 @@ export const WORKS = {
             },
             tech: ['Adobe Animate', 'Canva'],
             link: null,
-            mockup: null,
-            screen: 'body-explorer',
+            mockups: null,
+            phones: [
+                '/images/projects/body-explorer-menu.webp',
+                '/images/projects/body-explorer-play.webp',
+            ],
         },
         {
             id: 'campusnews',
@@ -412,8 +427,8 @@ export const WORKS = {
             },
             tech: ['HTML', 'PHP', 'Bootstrap'],
             link: null,
-            mockup: null,
-            screen: null,
+            mockups: null,
+            phones: null,
         },
         {
             id: 'website-portofolio',
@@ -424,8 +439,8 @@ export const WORKS = {
             },
             tech: ['HTML', 'CSS', 'JavaScript'],
             link: null,
-            mockup: null,
-            screen: null,
+            mockups: null,
+            phones: null,
         },
         {
             id: 'spacedash',
@@ -439,8 +454,11 @@ export const WORKS = {
                 label: 'github.com',
                 url: 'https://github.com/DikiFaturrohman/absolute-zero-mini-games',
             },
-            mockup: null,
-            screen: 'spacedash',
+            mockups: null,
+            phones: [
+                '/images/projects/spacedash-title.webp',
+                '/images/projects/spacedash-play.webp',
+            ],
         },
     ] satisfies Project[],
 };
@@ -656,6 +674,8 @@ export const CONTACT = {
         phone: { id: 'Telepon / WhatsApp', en: 'Phone / WhatsApp' },
         location: { id: 'Lokasi', en: 'Location' },
         github: { id: 'GitHub', en: 'GitHub' },
+        linkedin: { id: 'LinkedIn', en: 'LinkedIn' },
+        instagram: { id: 'Instagram', en: 'Instagram' },
     },
     boxTitle: {
         id: 'Siap untuk memulai kolaborasi?',
@@ -669,11 +689,4 @@ export const CONTACT = {
         id: `mailto:${PROFILE.email}?subject=Pertanyaan%20proyek`,
         en: `mailto:${PROFILE.email}?subject=Project%20inquiry`,
     } satisfies Localized,
-};
-
-export const FOOTER = {
-    credit: {
-        id: 'Dibuat dengan pendekatan modern • Laravel, Tailwind CSS, & Responsive Design.',
-        en: 'Built the modern way • Laravel, Tailwind CSS, & Responsive Design.',
-    },
 };

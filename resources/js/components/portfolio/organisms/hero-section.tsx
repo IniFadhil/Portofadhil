@@ -1,7 +1,7 @@
-import { HERO, NAME, PROFILE, UI } from '@/data/portfolio';
+import { CONTACT, HERO, NAME, PROFILE, UI } from '@/data/portfolio';
 import type { Locale } from '@/data/portfolio';
 import { cn } from '@/lib/utils';
-import { ChevronDown, Github, MapPin } from 'lucide-react';
+import { ChevronDown, Github, Instagram, Linkedin, MapPin } from 'lucide-react';
 import { useState } from 'react';
 
 type HeroSectionProps = {
@@ -81,10 +81,30 @@ export default function HeroSection({ locale }: HeroSectionProps) {
                                 href={PROFILE.github}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-2 rounded-xl px-4 py-3 text-base font-medium text-slate-muted transition-colors hover:text-accent-teal"
+                                aria-label={CONTACT.labels.github[locale]}
+                                className="flex size-11 items-center justify-center rounded-xl text-slate-muted transition-colors hover:text-accent-teal"
                             >
-                                <Github className="size-4" aria-hidden />
-                                {PROFILE.githubHandle}
+                                <Github className="size-5" aria-hidden />
+                            </a>
+
+                            <a
+                                href={PROFILE.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={CONTACT.labels.linkedin[locale]}
+                                className="flex size-11 items-center justify-center rounded-xl text-slate-muted transition-colors hover:text-accent-teal"
+                            >
+                                <Linkedin className="size-5" aria-hidden />
+                            </a>
+
+                            <a
+                                href={PROFILE.instagram}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={CONTACT.labels.instagram[locale]}
+                                className="flex size-11 items-center justify-center rounded-xl text-slate-muted transition-colors hover:text-accent-teal"
+                            >
+                                <Instagram className="size-5" aria-hidden />
                             </a>
                         </div>
 

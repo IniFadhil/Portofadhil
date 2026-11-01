@@ -14,32 +14,18 @@ type PreviewProps = {
  * project without one gets a quiet placeholder instead of a fake screen.
  */
 export default function ProjectPreview({ project, locale }: PreviewProps) {
-    if (project.screen) {
+    if (project.phones) {
         return (
             <div className="relative mx-auto h-[350px] w-full max-w-[430px] sm:h-[410px]">
                 <div className="absolute top-2 right-0 z-0 w-[48%] max-w-[186px] sm:right-1">
                     <Phone label={project.title}>
-                        {project.screen === 'spacedash' ? (
-                            <SpaceDashScreen locale={locale} variant="title" />
-                        ) : (
-                            <BodyExplorerScreen
-                                locale={locale}
-                                variant="play"
-                            />
-                        )}
+                        <Shot src={project.phones[0]} alt="" />
                     </Phone>
                 </div>
 
                 <div className="absolute bottom-0 left-0 z-10 w-[46%] max-w-[178px] rotate-[-14deg] sm:left-2">
                     <Phone label={project.title}>
-                        {project.screen === 'spacedash' ? (
-                            <SpaceDashScreen locale={locale} variant="play" />
-                        ) : (
-                            <BodyExplorerScreen
-                                locale={locale}
-                                variant="menu"
-                            />
-                        )}
+                        <Shot src={project.phones[1]} alt="" />
                     </Phone>
                 </div>
             </div>
@@ -52,63 +38,55 @@ export default function ProjectPreview({ project, locale }: PreviewProps) {
 /** Laptop in the middle, phone leaning in from the left, tablet from the right. */
 function WebStage({ project, locale }: { project: Project; locale: Locale }) {
     const copy = UI[locale];
-
-    const screen = project.mockup ? (
-        <img
-            src={project.mockup}
-            alt={`Tampilan ${project.title}`}
-            width={1280}
-            height={800}
-            loading="lazy"
-            decoding="async"
-            className="size-full object-cover object-top"
-        />
-    ) : (
-        <Placeholder title={project.title} note={copy.mockupPending} />
-    );
+    const shots = project.mockups;
 
     return (
         <div className="relative mx-auto h-[290px] w-full max-w-[600px] sm:h-[380px] lg:h-[400px]">
             <div className="absolute top-0 left-1/2 z-10 w-[82%] -translate-x-1/2">
-                <Laptop title={project.title}>{screen}</Laptop>
-            </div>
-
-            <div className="absolute bottom-0 left-0 z-20 w-[21%] max-w-[120px] rotate-[-9deg] sm:w-[22%] sm:max-w-[132px]">
-                <Phone label={project.title} compact>
-                    <div className="size-full bg-[#0c1417]">
-                        {project.mockup ? (
-                            <img
-                                src={project.mockup}
-                                alt=""
-                                aria-hidden
-                                loading="lazy"
-                                decoding="async"
-                                className="size-full object-cover object-top"
-                            />
-                        ) : (
-                            <div className="size-full bg-[#0c1417]" />
-                        )}
-                    </div>
-                </Phone>
-            </div>
-
-            <div className="absolute right-0 bottom-[2%] z-20 w-[27%] max-w-[160px] rotate-[7deg] sm:w-[28%] sm:max-w-[178px]">
-                <Tablet title={project.title}>
-                    {project.mockup ? (
-                        <img
-                            src={project.mockup}
-                            alt=""
-                            aria-hidden
-                            loading="lazy"
-                            decoding="async"
-                            className="size-full object-cover object-top"
+                <Laptop title={project.title}>
+                    {shots?.laptop ? (
+                        <Shot
+                            src={shots.laptop}
+                            alt={`Tampilan ${project.title}`}
                         />
                     ) : (
-                        <div className="size-full bg-[#0c1417]" />
+                        <Placeholder
+                            title={project.title}
+                            note={copy.mockupPending}
+                        />
                     )}
-                </Tablet>
+                </Laptop>
             </div>
+
+            {shots?.phone && (
+                <div className="absolute bottom-0 left-0 z-20 w-[21%] max-w-[120px] rotate-[-9deg] sm:w-[22%] sm:max-w-[132px]">
+                    <Phone label={project.title} compact>
+                        <Shot src={shots.phone} alt="" />
+                    </Phone>
+                </div>
+            )}
+
+            {shots?.tablet && (
+                <div className="absolute right-0 bottom-[2%] z-20 w-[27%] max-w-[160px] rotate-[7deg] sm:w-[28%] sm:max-w-[178px]">
+                    <Tablet title={project.title}>
+                        <Shot src={shots.tablet} alt="" />
+                    </Tablet>
+                </div>
+            )}
         </div>
+    );
+}
+
+/** One captured screen, filling its frame from the top edge. */
+function Shot({ src, alt }: { src: string; alt: string }) {
+    return (
+        <img
+            src={src}
+            alt={alt}
+            loading="lazy"
+            decoding="async"
+            className="size-full object-cover object-top"
+        />
     );
 }
 
@@ -231,212 +209,6 @@ function Phone({
                 />
                 {children}
             </div>
-        </div>
-    );
-}
-
-/** A fixed star field, so the drawn screen is identical on every render. */
-const STARS: Array<[number, number]> = [
-    [7, 10],
-    [13, 64],
-    [21, 30],
-    [28, 82],
-    [36, 16],
-    [44, 58],
-    [52, 38],
-    [58, 76],
-    [66, 22],
-    [72, 50],
-    [80, 14],
-    [86, 68],
-];
-
-function SpaceDashScreen({
-    locale,
-    variant,
-}: {
-    locale: Locale;
-    variant: 'title' | 'play';
-}) {
-    return (
-        <div className="relative flex size-full flex-col justify-between overflow-hidden bg-[#050b1a] p-2.5 text-sand">
-            {STARS.map(([top, left]) => (
-                <span
-                    key={`${top}-${left}`}
-                    aria-hidden
-                    className="absolute size-0.5 rounded-full bg-white/60"
-                    style={{ top: `${top}%`, left: `${left}%` }}
-                />
-            ))}
-
-            <div className="relative flex items-center justify-between text-[10px] font-bold text-teal-300">
-                <span>
-                    {locale === 'id' ? 'SKOR' : 'SCORE'}{' '}
-                    {variant === 'play' ? '1240' : '0'}
-                </span>
-                <span className="flex gap-1" aria-hidden>
-                    {[0, 1, 2].map((life) => (
-                        <span
-                            key={life}
-                            className={cn(
-                                'size-1.5 rounded-[1px]',
-                                variant === 'play' && life === 2
-                                    ? 'bg-teal-300/25'
-                                    : 'bg-teal-300',
-                            )}
-                        />
-                    ))}
-                </span>
-            </div>
-
-            {variant === 'title' ? (
-                <div className="relative flex flex-col items-center gap-2.5">
-                    <svg viewBox="0 0 48 48" className="size-9" aria-hidden>
-                        <path d="M24 3 34 30 24 25 14 30Z" fill="#7dd3fc" />
-                        <path d="M24 25 29 41 24 36 19 41Z" fill="#2dd4bf" />
-                    </svg>
-
-                    <span className="flex gap-2" aria-hidden>
-                        {[0, 1].map((alien) => (
-                            <span
-                                key={alien}
-                                className="flex size-2.5 items-center gap-0.5 rounded-[2px] bg-fuchsia-400/90 p-0.5"
-                            >
-                                <span className="size-0.5 rounded-full bg-[#050b1a]" />
-                                <span className="size-0.5 rounded-full bg-[#050b1a]" />
-                            </span>
-                        ))}
-                    </span>
-                </div>
-            ) : (
-                <div className="relative flex flex-1 flex-col items-center justify-center gap-3">
-                    <span className="flex gap-3" aria-hidden>
-                        {[0, 1, 2].map((alien) => (
-                            <span
-                                key={alien}
-                                className="flex size-2.5 items-center gap-0.5 rounded-[2px] bg-fuchsia-400/90 p-0.5"
-                            >
-                                <span className="size-0.5 rounded-full bg-[#050b1a]" />
-                                <span className="size-0.5 rounded-full bg-[#050b1a]" />
-                            </span>
-                        ))}
-                    </span>
-
-                    <svg viewBox="0 0 48 48" className="size-7" aria-hidden>
-                        <path d="M24 3 34 30 24 25 14 30Z" fill="#7dd3fc" />
-                        <path d="M24 25 29 41 24 36 19 41Z" fill="#2dd4bf" />
-                    </svg>
-
-                    <span
-                        aria-hidden
-                        className="absolute inset-x-4 bottom-1 h-[2px] rounded-full bg-teal-400/30"
-                    />
-                </div>
-            )}
-
-            <span className="relative block rounded-md bg-accent-teal py-1.5 text-center text-[10px] font-bold text-[#0a1618]">
-                {variant === 'play'
-                    ? locale === 'id'
-                        ? 'JEDA'
-                        : 'PAUSE'
-                    : locale === 'id'
-                      ? 'KETUK MULAI'
-                      : 'TAP START'}
-            </span>
-        </div>
-    );
-}
-
-function BodyExplorerScreen({
-    locale,
-    variant,
-}: {
-    locale: Locale;
-    variant: 'play' | 'menu';
-}) {
-    return (
-        <div className="relative flex size-full flex-col gap-2 overflow-hidden bg-[#f7efe1] p-2.5 text-[#2b2118]">
-            <p className="text-[11px] font-extrabold">Body Explorer</p>
-
-            {variant === 'play' ? (
-                <>
-                    <div className="relative flex flex-1 items-center justify-center rounded-lg bg-white/70">
-                        <svg
-                            viewBox="0 0 64 120"
-                            className="h-full max-h-[120px]"
-                            aria-hidden
-                        >
-                            <g
-                                fill="none"
-                                stroke="#cbbfa8"
-                                strokeWidth="6"
-                                strokeLinecap="round"
-                            >
-                                <circle cx="32" cy="16" r="9" />
-                                <path d="M32 26v34M32 34 16 50M32 34l16 16M32 60 22 96M32 60l10 36" />
-                            </g>
-                        </svg>
-
-                        <span
-                            aria-hidden
-                            className="absolute top-[34%] left-1/2 size-5 -translate-x-1/2 rounded-full border-2 border-dashed border-[#e8a33d]"
-                        />
-                    </div>
-
-                    <div className="flex items-center justify-between gap-1.5">
-                        <span className="flex items-center gap-1 rounded-md bg-white px-1.5 py-1 text-[9px] font-bold">
-                            <svg
-                                viewBox="0 0 24 24"
-                                className="size-2.5 text-rose-500"
-                                aria-hidden
-                            >
-                                <path
-                                    d="M12 21s-7-4.6-7-9.5A4.5 4.5 0 0 1 12 8a4.5 4.5 0 0 1 7 3.5C19 16.4 12 21 12 21z"
-                                    fill="currentColor"
-                                />
-                            </svg>
-                            {locale === 'id' ? 'Jantung' : 'Heart'}
-                        </span>
-
-                        <span className="flex gap-1" aria-hidden>
-                            <span className="size-1.5 rounded-full bg-[#e8a33d]" />
-                            <span className="size-1.5 rounded-full bg-[#2b2118]/15" />
-                            <span className="size-1.5 rounded-full bg-[#2b2118]/15" />
-                        </span>
-                    </div>
-                </>
-            ) : (
-                <>
-                    <div className="flex flex-1 flex-col items-center justify-center gap-2 rounded-lg bg-white/70">
-                        <svg viewBox="0 0 64 120" className="h-16" aria-hidden>
-                            <g
-                                fill="none"
-                                stroke="#cbbfa8"
-                                strokeWidth="6"
-                                strokeLinecap="round"
-                            >
-                                <circle cx="32" cy="16" r="9" />
-                                <path d="M32 26v34M32 34 16 50M32 34l16 16M32 60 22 96M32 60l10 36" />
-                            </g>
-                        </svg>
-                    </div>
-
-                    <div className="space-y-1.5">
-                        {[
-                            locale === 'id' ? 'Mulai' : 'Start',
-                            locale === 'id' ? 'Level' : 'Level',
-                            locale === 'id' ? 'Keluar' : 'Quit',
-                        ].map((label) => (
-                            <span
-                                key={label}
-                                className="block rounded-md bg-[#e8a33d] py-1.5 text-center text-[10px] font-bold text-[#2b2118]"
-                            >
-                                {label}
-                            </span>
-                        ))}
-                    </div>
-                </>
-            )}
         </div>
     );
 }
