@@ -6,21 +6,14 @@ type SiteFooterProps = {
     locale: Locale;
 };
 
-/** The close: the name back at full width, then the small print. */
 export default function SiteFooter({ locale }: SiteFooterProps) {
     return (
-        <footer className="w-full bg-deck-950 py-16">
-            <Container>
-                <p className="font-display text-[clamp(2rem,6vw,4.5rem)] leading-none font-bold tracking-[-0.04em] text-sand">
-                    {PROFILE.name}
+        <footer className="w-full bg-[#071113] py-10 text-sm text-slate-muted">
+            <Container className="flex flex-col items-center justify-between gap-2 text-center sm:flex-row sm:text-left">
+                <p>{FOOTER.credit[locale]}</p>
+                <p className="font-semibold text-sand">
+                    {PROFILE.name} &copy; {new Date().getFullYear()}
                 </p>
-
-                <div className="mt-10 flex flex-col gap-2 text-base text-slate-muted sm:flex-row sm:items-center sm:justify-between">
-                    <p>{FOOTER.credit[locale]}</p>
-                    <p>
-                        {PROFILE.name} &copy; {new Date().getFullYear()}
-                    </p>
-                </div>
             </Container>
         </footer>
     );

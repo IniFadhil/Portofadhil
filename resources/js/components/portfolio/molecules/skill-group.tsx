@@ -3,17 +3,24 @@ type SkillGroupProps = {
     items: string[];
 };
 
-/** One row of the skills table: the group, then its tools as running text. */
+const PILL =
+    'rounded-lg bg-deck-850 px-3 py-1.5 text-sand transition-colors hover:bg-deck-800';
+
+/** One row of the skills table: the group on the left, its tools on the right. */
 export default function SkillGroup({ label, items }: SkillGroupProps) {
     return (
-        <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:gap-10">
-            <span className="shrink-0 text-base font-semibold text-sand md:w-52">
+        <div className="flex flex-col justify-between gap-3 rounded-2xl bg-deck-900 p-4 transition-colors hover:bg-deck-850 sm:p-5 md:flex-row md:items-center">
+            <span className="shrink-0 text-sm font-bold tracking-wider text-slate-muted md:w-56">
                 {label}
             </span>
 
-            <span className="text-lg leading-relaxed text-slate-muted">
-                {items.join(' · ')}
-            </span>
+            <div className="flex flex-wrap gap-2 text-base">
+                {items.map((item) => (
+                    <span key={item} className={PILL}>
+                        {item}
+                    </span>
+                ))}
+            </div>
         </div>
     );
 }

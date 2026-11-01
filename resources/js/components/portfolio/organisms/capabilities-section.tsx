@@ -1,4 +1,3 @@
-import Reveal from '@/components/portfolio/atoms/reveal';
 import Section from '@/components/portfolio/atoms/section';
 import SectionHeading from '@/components/portfolio/atoms/section-heading';
 import SkillGroup from '@/components/portfolio/molecules/skill-group';
@@ -12,7 +11,7 @@ type CapabilitiesSectionProps = {
 };
 
 const TAB =
-    'rounded-full px-4 py-2 text-base font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:outline-none';
+    'rounded-lg px-3.5 py-2 text-sm font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:ring-offset-2 focus-visible:ring-offset-deck-950 focus-visible:outline-none';
 
 /**
  * The skills table, with a filter row above it. `null` is the "all" tab; picking
@@ -36,16 +35,13 @@ export default function CapabilitiesSection({
 
     return (
         <Section id="perkakas">
-            <SectionHeading
-                title={CAPABILITIES.title[locale]}
-                lead={CAPABILITIES.lead[locale]}
-            />
+            <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
+                <SectionHeading title={CAPABILITIES.title[locale]} />
 
-            <Reveal delay={80}>
                 <div
                     role="group"
                     aria-label={CAPABILITIES.title[locale]}
-                    className="mt-10 flex flex-wrap gap-2"
+                    className="flex flex-wrap gap-1.5"
                 >
                     {tabs.map((tab) => (
                         <button
@@ -64,17 +60,17 @@ export default function CapabilitiesSection({
                         </button>
                     ))}
                 </div>
+            </div>
 
-                <div className="mt-12 space-y-7">
-                    {groups.map((group) => (
-                        <SkillGroup
-                            key={`${group.key}-${group.label.en}`}
-                            label={group.label[locale]}
-                            items={group.items}
-                        />
-                    ))}
-                </div>
-            </Reveal>
+            <div className="space-y-4 text-base">
+                {groups.map((group) => (
+                    <SkillGroup
+                        key={`${group.key}-${group.label.en}`}
+                        label={group.label[locale]}
+                        items={group.items}
+                    />
+                ))}
+            </div>
         </Section>
     );
 }

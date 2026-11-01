@@ -9,11 +9,11 @@ type ProjectShowcaseProps = {
 };
 
 const LINK =
-    'inline-flex items-center gap-1.5 text-base font-semibold text-sand transition-colors hover:text-accent-teal';
+    'inline-flex items-center gap-1.5 text-sm font-semibold text-sand transition-colors hover:text-accent-teal';
 
 /**
- * One project: the details on the left, its picture on the right. Everything the
- * project does not have is simply left out.
+ * One project as the featured card: the details on the left, the device pair on
+ * the right. Everything the project does not have is simply left out.
  */
 export default function ProjectShowcase({
     project,
@@ -21,58 +21,81 @@ export default function ProjectShowcase({
 }: ProjectShowcaseProps) {
     const copy = UI[locale];
 
+    const links = [
+        { href: project.repositoryUrl, label: copy.sourceCode, Icon: Github },
+    ].filter(
+        (link): link is { href: string; label: string; Icon: typeof Github } =>
+            Boolean(link.href),
+    );
+
     return (
-        <article className="grid grid-cols-1 items-center gap-10 bg-deck-900 p-6 sm:p-10 lg:grid-cols-12 lg:gap-14">
-            <div className="lg:col-span-5">
-                <h3 className="font-display text-3xl font-bold tracking-[-0.02em] text-sand">
+        <article className="relative grid grid-cols-1 items-center gap-10 overflow-hidden rounded-3xl bg-deck-900 p-6 sm:p-10 lg:grid-cols-12">
+            <div className="space-y-5 lg:col-span-5">
+                <h3 className="text-2xl font-extrabold text-sand sm:text-3xl">
                     {project.title}
                 </h3>
 
-                <p className="mt-2 text-base text-slate-muted">
+                <p className="text-sm font-semibold text-slate-muted">
                     {CATEGORY_LABELS[project.category][locale]}
-                    {project.period ? ` · ${project.period[locale]}` : null}
+                    {project.period ? ` • ${project.period[locale]}` : null}
                 </p>
 
-                <p className="mt-4 max-w-[54ch] text-lg leading-relaxed text-slate-muted">
+                <p className="text-base leading-relaxed text-slate-muted">
                     {project.description[locale]}
                 </p>
 
                 {project.technologies.length > 0 ? (
-                    <p className="mt-5 text-base text-sand/80">
-                        {project.technologies.join(' · ')}
-                    </p>
+                    <div className="flex flex-wrap gap-2 pt-1">
+                        {project.technologies.map((tech, index) => (
+                            <span
+                                key={tech}
+                                className={
+                                    index === 0
+                                        ? 'rounded-md bg-deck-800 px-3 py-1 text-[13px] font-medium text-accent-teal'
+                                        : 'rounded-md bg-deck-800 px-3 py-1 text-[13px] text-sand'
+                                }
+                            >
+                                {tech}
+                            </span>
+                        ))}
+                    </div>
                 ) : null}
 
-                <div className="mt-7 flex flex-wrap items-center gap-4">
+                <div className="flex flex-wrap items-center gap-3 pt-2">
                     {project.demoUrl ? (
                         <a
                             href={project.demoUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 rounded-full bg-accent-teal px-5 py-2.5 text-base font-bold text-[#0a1618] transition-colors hover:bg-accent-mint"
+                            className="inline-flex items-center gap-2 rounded-lg bg-accent-teal px-5 py-2.5 text-sm font-bold text-[#0a1618] transition-colors hover:bg-accent-mint"
                         >
                             <span>{copy.liveDemo}</span>
-                            <ExternalLink className="size-4" aria-hidden />
+                            <ExternalLink className="size-3.5" aria-hidden />
                         </a>
                     ) : null}
 
-                    {project.repositoryUrl ? (
+                    {links.map(({ href, label, Icon }) => (
                         <a
-                            href={project.repositoryUrl}
+                            key={href}
+                            href={href}
                             target="_blank"
                             rel="noopener noreferrer"
                             className={LINK}
                         >
-                            <Github className="size-4" aria-hidden />
-                            {copy.sourceCode}
-                            <ArrowUpRight className="size-4" aria-hidden />
+                            <Icon className="size-3.5" aria-hidden />
+                            {label}
+                            <ArrowUpRight className="size-3.5" aria-hidden />
                         </a>
-                    ) : null}
+                    ))}
                 </div>
             </div>
 
             <div className="lg:col-span-7">
-                <ProjectMockup project={project} locale={locale} />
+                <ProjectMockup
+                    project={project}
+                    locale={locale}
+                    noPreview={copy.noPreview}
+                />
             </div>
         </article>
     );

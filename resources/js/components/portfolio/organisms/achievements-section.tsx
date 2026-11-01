@@ -1,4 +1,3 @@
-import Reveal from '@/components/portfolio/atoms/reveal';
 import Section from '@/components/portfolio/atoms/section';
 import SectionHeading from '@/components/portfolio/atoms/section-heading';
 import { ACHIEVEMENTS } from '@/data/portfolio';
@@ -18,37 +17,38 @@ export default function AchievementsSection({
     return (
         <Section id="sertifikasi" tone="tint">
             <SectionHeading
+                className="mb-8"
                 title={ACHIEVEMENTS.title[locale]}
                 lead={ACHIEVEMENTS.lead[locale]}
             />
 
-            <Reveal delay={80}>
-                <ul className="mt-14 max-w-5xl space-y-12">
-                    {ACHIEVEMENTS.items.map((item) => (
-                        <li
-                            key={item.title.en}
-                            className="grid gap-2 md:grid-cols-[11rem_1fr_7rem] md:gap-10"
-                        >
-                            <span className="text-base text-slate-muted md:pt-1">
+            <div className="space-y-3.5 pt-2">
+                {ACHIEVEMENTS.items.map((item) => (
+                    <div
+                        key={item.title.en}
+                        className="flex flex-col justify-between gap-4 rounded-2xl bg-deck-900 p-5 transition-colors hover:bg-deck-850 sm:flex-row sm:items-center sm:p-6"
+                    >
+                        <div className="flex items-start gap-4 sm:items-center">
+                            <span className="rounded bg-deck-800 px-2.5 py-1 text-[13px] font-bold text-slate-muted">
                                 {ACHIEVEMENTS.labels[item.kind][locale]}
                             </span>
 
                             <div>
-                                <h3 className="font-display text-2xl font-bold text-sand">
+                                <h3 className="text-base font-bold text-sand">
                                     {item.title[locale]}
                                 </h3>
-                                <p className="mt-1 text-base text-slate-muted">
+                                <p className="text-sm text-slate-muted">
                                     {item.issuer}
                                 </p>
                             </div>
+                        </div>
 
-                            <span className="text-base text-slate-muted md:pt-1 md:text-right">
-                                {item.period[locale]}
-                            </span>
-                        </li>
-                    ))}
-                </ul>
-            </Reveal>
+                        <span className="text-sm text-slate-muted">
+                            {item.period[locale]}
+                        </span>
+                    </div>
+                ))}
+            </div>
         </Section>
     );
 }

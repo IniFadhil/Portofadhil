@@ -9,9 +9,8 @@ type TimelineItemProps = {
 };
 
 /**
- * One entry in the track record: the period in the left column, then the role,
- * the organisation and whatever body the entry needs. Space separates entries;
- * there is no card around them.
+ * One card in the track record: the label and its meta tag on a rule, the role
+ * and the organisation, then whatever body the entry needs.
  */
 export default function TimelineItem({
     label,
@@ -21,19 +20,32 @@ export default function TimelineItem({
     children,
 }: TimelineItemProps) {
     return (
-        <article className="grid gap-3 md:grid-cols-[9rem_1fr] md:gap-10">
-            <p className="text-base text-slate-muted md:pt-1">{meta}</p>
+        <div className="flex flex-col justify-between rounded-2xl bg-deck-850 p-6 transition-colors hover:bg-deck-800 sm:p-8">
+            <div className="space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="text-[13px] font-bold text-accent-teal">
+                        {label}
+                    </span>
+                    <span className="rounded-md bg-deck-800 px-2.5 py-1 text-[13px] font-medium text-slate-muted">
+                        {meta}
+                    </span>
+                </div>
 
-            <div>
-                <h3 className="font-display text-2xl font-bold text-sand">
-                    {title}
-                </h3>
-                <p className="mt-1 text-base text-slate-muted">
-                    {org} &middot; {label}
-                </p>
+                <div>
+                    <h3 className="flex items-center gap-2 text-xl font-bold text-sand">
+                        <span
+                            aria-hidden
+                            className="size-2 shrink-0 rounded-full bg-accent-teal"
+                        />
+                        {title}
+                    </h3>
+                    <p className="mt-1 text-sm text-slate-muted sm:text-base">
+                        {org}
+                    </p>
+                </div>
 
-                <div className="mt-4 space-y-4">{children}</div>
+                {children}
             </div>
-        </article>
+        </div>
     );
 }
