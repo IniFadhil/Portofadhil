@@ -1,0 +1,10 @@
+node_modules
+.taste-skill
+.agents
+.claude
+storage/logs/*.log
+storage/inertia-devtools
+database/database.sqlite
+public/hot
+public/fonts-manifest.dev.json
+tests
