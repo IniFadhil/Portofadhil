@@ -32,12 +32,12 @@ export const PROFILE = {
 
 export const SEO: Record<'title' | 'description', Localized> = {
     title: {
-        id: 'Fadhil Rizki Fauzan - Game Developer & Software Developer',
-        en: 'Fadhil Rizki Fauzan - Game Developer & Software Developer',
+        id: 'Fadhil Rizki Fauzan - Portofolio',
+        en: 'Fadhil Rizki Fauzan - Portfolio',
     },
     description: {
-        id: 'Portofolio Fadhil Rizki Fauzan, game developer dan software developer asal Subang, Jawa Barat.',
-        en: 'Portfolio of Fadhil Rizki Fauzan, a game developer and software developer based in Subang, West Java.',
+        id: 'Portofolio Fadhil Rizki Fauzan, full stack web developer asal Subang, Jawa Barat.',
+        en: 'Portfolio of Fadhil Rizki Fauzan, a full stack web developer based in Subang, West Java.',
     },
 };
 
