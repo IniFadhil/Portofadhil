@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         @php
-            $siteTitle = 'Fadhil Rizki Fauzan - Game Developer & Software Developer';
-            $siteDescription = 'Portofolio Fadhil Rizki Fauzan, game developer dan software developer asal Subang, Jawa Barat.';
+            $siteTitle = 'Fadhil Rizki Fauzan - Full Stack Web Developer';
+            $siteDescription = 'Portofolio Fadhil Rizki Fauzan, full stack web developer asal Subang, Jawa Barat.';
             $siteUrl = request()->root();
         @endphp
 

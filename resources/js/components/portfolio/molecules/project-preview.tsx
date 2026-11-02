@@ -9,29 +9,11 @@ type PreviewProps = {
 
 /**
  * The device shot for one project. Web work stands in a laptop with a phone on
- * one side and a tablet on the other; the two games sit in a pair of phones.
- * The frames are drawn here, the screens are the project's own shot, and a
- * project without one gets a quiet placeholder instead of a fake screen.
+ * one side and a tablet on the other. The frames are drawn here, the screens are
+ * the project's own shot, and a project without one gets a quiet placeholder
+ * instead of a fake screen.
  */
 export default function ProjectPreview({ project, locale }: PreviewProps) {
-    if (project.phones) {
-        return (
-            <div className="relative mx-auto h-[350px] w-full max-w-[430px] sm:h-[410px]">
-                <div className="absolute top-2 right-0 z-0 w-[48%] max-w-[186px] sm:right-1">
-                    <Phone label={project.title}>
-                        <Shot src={project.phones[0]} alt="" />
-                    </Phone>
-                </div>
-
-                <div className="absolute bottom-0 left-0 z-10 w-[46%] max-w-[178px] rotate-[-14deg] sm:left-2">
-                    <Phone label={project.title}>
-                        <Shot src={project.phones[1]} alt="" />
-                    </Phone>
-                </div>
-            </div>
-        );
-    }
-
     return <WebStage project={project} locale={locale} />;
 }
 
