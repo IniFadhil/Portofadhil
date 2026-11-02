@@ -23,8 +23,8 @@ export const PROFILE = {
     githubHandle: '@IniFadhil',
     /** Bare login, for the public contribution chart. */
     githubUser: 'IniFadhil',
-    linkedin: 'https://www.linkedin.com/in/fadhil-rizki-fauzan-16552b448/',
-    linkedinHandle: 'fadhil-rizki-fauzan-16552b448',
+    linkedin: 'https://www.linkedin.com/in/fadhil-rf',
+    linkedinHandle: 'fadhil-rf',
     instagram: 'https://www.instagram.com/fadhil.rf/',
     instagramHandle: '@fadhil.rf',
     cv: '/cv/fadhil-rizki-fauzan.pdf',
@@ -32,12 +32,12 @@ export const PROFILE = {
 
 export const SEO: Record<'title' | 'description', Localized> = {
     title: {
-        id: 'Fadhil Rizki Fauzan - Full Stack Web Developer',
-        en: 'Fadhil Rizki Fauzan - Full Stack Web Developer',
+        id: 'Fadhil Rizki Fauzan - Game Developer & Software Developer',
+        en: 'Fadhil Rizki Fauzan - Game Developer & Software Developer',
     },
     description: {
-        id: 'Portofolio Fadhil Rizki Fauzan, full stack web developer asal Subang, Jawa Barat.',
-        en: 'Portfolio of Fadhil Rizki Fauzan, a full stack web developer based in Subang, West Java.',
+        id: 'Portofolio Fadhil Rizki Fauzan, game developer dan software developer asal Subang, Jawa Barat.',
+        en: 'Portfolio of Fadhil Rizki Fauzan, a game developer and software developer based in Subang, West Java.',
     },
 };
 
@@ -96,6 +96,7 @@ export const UI: Record<Locale, Copy> = {
             bahasa: 'Bahasa',
             frontend: 'Frontend',
             backend: 'Backend',
+            game: 'Game Dev',
             tools: 'Perkakas',
         },
         downloadCv: 'Unduh CV',
@@ -129,6 +130,7 @@ export const UI: Record<Locale, Copy> = {
             bahasa: 'Languages',
             frontend: 'Frontend',
             backend: 'Backend',
+            game: 'Game Dev',
             tools: 'Tools',
         },
         downloadCv: 'Download CV',
@@ -285,8 +287,8 @@ export const HERO = {
         en: 'Informatics Engineering undergraduate, Universitas Pasundan • Subang, West Java, Indonesia',
     } satisfies Localized,
     lead: {
-        id: 'Saya membangun aplikasi web, dari portal informasi pemerintah sampai e-commerce penyewaan alat musik. Fokus pada kode yang rapi dan antarmuka yang jelas dipakai.',
-        en: 'I build web applications, from a government information portal to a music instrument rental store. Focused on readable code and interfaces that are clear to use.',
+        id: 'Saya membangun aplikasi web dan game, dari portal informasi pemerintah sampai e-commerce penyewaan alat musik. Fokus pada kode yang rapi dan antarmuka yang jelas dipakai.',
+        en: 'I build web applications and games, from a government information portal to a music instrument rental store. Focused on readable code and interfaces that are clear to use.',
     } satisfies Localized,
     location: {
         id: 'Subang, Jawa Barat, Indonesia',
@@ -326,8 +328,8 @@ export const ABOUT = {
         en: 'Informatics Engineering undergraduate at Universitas Pasundan with a **3.48/4.00 GPA** and a strong interest in __full stack web development__.',
     } satisfies Localized,
     body: {
-        id: 'Memiliki pengalaman langsung di **Dinas Komunikasi dan Informatika Kabupaten Subang**, membangun portal informasi dan layanan administrasi surat berbasis web. Terbiasa mengerjakan pengembangan web menggunakan HTML, CSS, JavaScript, Bootstrap, dan PHP Native, serta framework modern seperti Laravel dan React.js, didukung pengalaman proyek pribadi mulai dari website e-commerce, website berbasis database, hingga portal berita.',
-        en: 'I have hands on experience at the **Subang Regency Office of Communication and Informatics**, where I built an information portal and a web based letter administration service. I work with HTML, CSS, JavaScript, Bootstrap, and PHP Native, along with modern frameworks such as Laravel and React.js, backed by personal projects ranging from an e-commerce site and a database driven website to a news portal.',
+        id: 'Memiliki pengalaman langsung di **Dinas Komunikasi dan Informatika Kabupaten Subang**, membangun portal informasi dan layanan administrasi surat berbasis web. Terbiasa mengerjakan pengembangan web menggunakan HTML, CSS, JavaScript, Bootstrap, dan PHP Native, serta framework modern seperti Laravel dan React.js, didukung pengalaman proyek pribadi mulai dari website e-commerce, website berbasis database, hingga game edukasi.',
+        en: 'I have hands on experience at the **Subang Regency Office of Communication and Informatics**, where I built an information portal and a web based letter administration service. I work with HTML, CSS, JavaScript, Bootstrap, and PHP Native, along with modern frameworks such as Laravel and React.js, backed by personal projects ranging from an e-commerce site and a database driven website to an educational game.',
     } satisfies Localized,
     note: {
         id: 'Selalu termotivasi untuk terus belajar dan mengembangkan keterampilan demi memberikan solusi inovatif yang memenuhi kebutuhan pengguna.',
@@ -345,6 +347,8 @@ export type Project = {
     /** Screenshots under public/, one per frame. A frame with no shot is left
      *  out, never filled with the wrong device. */
     mockups: { laptop?: string; tablet?: string; phone?: string } | null;
+    /** The games sit in a pair of phones: menu first, then play. */
+    phones: [string, string] | null;
 };
 
 export const WORKS = {
@@ -354,8 +358,8 @@ export const WORKS = {
         en: 'A Few Things I Have Built',
     },
     lead: {
-        id: 'Pekerjaan pengembangan web dari 2022 sampai 2025, termasuk Smart Desa, portal desa yang dibangun mengikuti regulasi Peraturan Bupati Subang.',
-        en: 'Web development work from 2022 to 2025, including Smart Desa, a village portal built to the Subang regent regulation.',
+        id: 'Pekerjaan pengembangan software, situs web, dan game dari 2022 sampai 2025, termasuk Smart Desa, portal desa yang dibangun mengikuti regulasi Peraturan Bupati Subang.',
+        en: 'Software, web, and game development work from 2022 to 2025, including Smart Desa, a village portal built to the Subang regent regulation.',
     },
     more: {
         id: 'Masih ada beberapa eksperimen lain yang belum saya tulis di sini.',
@@ -382,6 +386,7 @@ export const WORKS = {
                 tablet: '/images/projects/smart-desa-tablet.webp',
                 phone: '/images/projects/smart-desa-phone.webp',
             },
+            phones: null,
         },
         {
             id: 'symphonia',
@@ -396,6 +401,22 @@ export const WORKS = {
                 laptop: '/images/projects/symphonia-laptop.webp',
                 tablet: '/images/projects/symphonia-tablet.webp',
             },
+            phones: null,
+        },
+        {
+            id: 'body-explorer',
+            title: 'Body Explorer',
+            description: {
+                id: 'Game edukasi yang mengenalkan bagian tubuh manusia lewat permainan drag-and-drop. Anak menyeret tiap bagian ke posisi yang tepat di atas ilustrasi tubuh, sehingga nama dan letaknya terlatih tanpa terasa seperti menghafal.',
+                en: 'An educational game that introduces the parts of the human body through drag-and-drop play. Children drag each part onto the right spot on an illustration, so names and locations stick without feeling like memorisation.',
+            },
+            tech: ['Adobe Animate', 'Canva'],
+            link: null,
+            mockups: null,
+            phones: [
+                '/images/projects/body-explorer-menu.webp',
+                '/images/projects/body-explorer-play.webp',
+            ],
         },
         {
             id: 'campusnews',
@@ -410,6 +431,7 @@ export const WORKS = {
                 laptop: '/images/projects/campusnews-laptop.webp',
                 phone: '/images/projects/campusnews-phone.webp',
             },
+            phones: null,
         },
         {
             id: 'website-portofolio',
@@ -420,18 +442,41 @@ export const WORKS = {
             },
             tech: ['HTML', 'CSS', 'JavaScript'],
             link: null,
+            mockups: {
+                laptop: '/images/projects/portofolio-laptop.webp',
+                phone: '/images/projects/portofolio-phone.webp',
+            },
+            phones: null,
+        },
+        {
+            id: 'spacedash',
+            title: 'SpaceDash: Alien Shooter',
+            description: {
+                id: 'Bagian dari seri Absolute Zero Mini Games: pemain membawa pesawat melawan gelombang alien di luar angkasa. Permainan menuntut kewaspadaan dan keputusan cepat untuk bertahan selama mungkin.',
+                en: 'Part of the Absolute Zero Mini Games series: players take a ship into space against waves of aliens. It calls for alertness and quick decisions to survive as long as possible.',
+            },
+            tech: [],
+            link: {
+                label: 'github.com',
+                url: 'https://github.com/DikiFaturrohman/absolute-zero-mini-games',
+            },
             mockups: null,
+            phones: [
+                '/images/projects/spacedash-title.webp',
+                '/images/projects/spacedash-play.webp',
+            ],
         },
     ] satisfies Project[],
 };
 
 /** The filter tabs on the skills section. `all` plus one per group key. */
-export type SkillKey = 'bahasa' | 'frontend' | 'backend' | 'tools';
+export type SkillKey = 'bahasa' | 'frontend' | 'backend' | 'game' | 'tools';
 
 export const SKILL_FILTERS: readonly SkillKey[] = [
     'bahasa',
     'frontend',
     'backend',
+    'game',
     'tools',
 ];
 
@@ -469,6 +514,11 @@ export const CAPABILITIES = {
             key: 'frontend',
             label: { id: 'Mobile', en: 'Mobile' },
             items: ['Kotlin', 'Android', 'XML layouts'],
+        },
+        {
+            key: 'game',
+            label: { id: 'Game Development', en: 'Game development' },
+            items: ['Unity', 'Godot', 'Scratch', 'Adobe Animate'],
         },
         {
             key: 'backend',
@@ -609,8 +659,8 @@ export const JOURNEY = {
         period: { id: '2022 - Sekarang', en: '2022 - Present' },
         note: { id: 'IPK 3.48/4.00', en: 'GPA 3.48/4.00' },
         body: {
-            id: 'Mempelajari fondasi rekayasa perangkat lunak, algoritma, struktur data, arsitektur basis data relasional, pemrograman berorientasi objek, serta pengembangan sistem berbasis web.',
-            en: 'Coursework in software engineering foundations, algorithms, data structures, relational database architecture, object oriented programming, and the development of web based systems.',
+            id: 'Mempelajari fondasi rekayasa perangkat lunak, algoritma, struktur data, arsitektur basis data relasional, pemrograman berorientasi objek, serta pengembangan sistem berbasis web dan game interaktif.',
+            en: 'Coursework in software engineering foundations, algorithms, data structures, relational database architecture, object oriented programming, and the development of web and interactive game systems.',
         } satisfies Localized,
     },
 };
@@ -622,8 +672,8 @@ export const CONTACT = {
         en: "Let's Build Something",
     },
     lead: {
-        id: 'Terbuka untuk magang, kerja sama proyek, dan posisi penuh waktu di bidang web development. Ceritakan proyek atau ide yang sedang Anda kerjakan, saya senang mendiskusikannya.',
-        en: 'Open to internships, project work, and full time roles in web development. Tell me about the project or idea you are working on, and I would be glad to talk it through.',
+        id: 'Terbuka untuk magang, kerja sama proyek, dan posisi penuh waktu di bidang web atau game development. Ceritakan proyek atau ide yang sedang Anda kerjakan, saya senang mendiskusikannya.',
+        en: 'Open to internships, project work, and full time roles in web or game development. Tell me about the project or idea you are working on, and I would be glad to talk it through.',
     },
     labels: {
         email: { id: 'Email', en: 'Email' },
