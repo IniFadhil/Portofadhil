@@ -621,7 +621,7 @@ export const JOURNEY = {
     educationLabel: { id: 'Pendidikan Formal', en: 'Formal education' },
     gpaLabel: { id: 'Indeks Prestasi Kumulatif', en: 'Cumulative GPA' },
     /** The stack tags under the work entry. */
-    tags: ['Laravel', 'PHP', 'MySQL', 'Smart Desa'],
+    tags: ['Laravel', 'PHP', 'MySQL', 'JavaScript', 'Bootstrap'],
     items: [
         {
             role: 'Web Developer',
@@ -630,16 +630,20 @@ export const JOURNEY = {
             period: null,
             points: [
                 {
-                    id: 'Membangun portal informasi dinas untuk mendukung penyampaian informasi kepada masyarakat.',
-                    en: 'Built the office information portal that publishes information to the public.',
+                    id: 'Berkontribusi dalam pengembangan website Smart Desa sebagai platform digital untuk mendukung penyampaian informasi dan pelayanan administrasi desa.',
+                    en: 'Contributed to the Smart Desa website as a digital platform for village information and administrative services.',
                 },
                 {
-                    id: 'Mengembangkan modul layanan administrasi surat pada Website Smart Desa agar pengelolaan dan pelayanan surat berjalan digital.',
-                    en: 'Developed the letter administration module on the Smart Desa website to digitise letter handling.',
+                    id: 'Mengembangkan antarmuka website serta modul layanan administrasi surat yang memungkinkan masyarakat mengajukan permohonan surat secara online.',
+                    en: 'Built the website interface and the letter administration module that lets residents file letter requests online.',
                 },
                 {
-                    id: 'Menerapkan aplikasi menggunakan Laravel, PHP, dan MySQL.',
-                    en: 'Implemented the applications with Laravel, PHP, and MySQL.',
+                    id: 'Mengembangkan fitur pengelolaan data, proses verifikasi pengajuan, hingga penerbitan dokumen surat secara digital.',
+                    en: 'Developed data management, request verification, and digital letter issuance end to end.',
+                },
+                {
+                    id: 'Melakukan pengembangan dan pengujian aplikasi untuk memastikan fitur berjalan sesuai dengan kebutuhan sistem.',
+                    en: 'Developed and tested the application so every feature met the system requirements.',
                 },
             ],
         },
